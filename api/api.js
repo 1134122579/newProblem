@@ -1,6 +1,6 @@
 import request from '@/utils/request.js'
 
-export function getToken(data) {
+export function getTokenApi(data) {
   return request({
     url: '/getToken',
     method: 'get',

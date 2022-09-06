@@ -1,7 +1,9 @@
 {
   "pages": [
-    "pages/home/home",
+    "pages/problems/index",
+    "pages/userinfo/userinfo",
     "pages/about/about",
+    "pages/home/home",
     "pages/index/index"
   ],
   "subPackages": [],
@@ -10,6 +12,24 @@
     "navigationBarTitleText": "uni-app",
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "selectedColor": "#3974F4",
+    "color": "#C4C4C4",
+    "list": [
+      {
+        "text": "首页",
+        "pagePath": "pages/home/home",
+        "iconPath": "static/tabbar/home.png",
+        "selectedIconPath": "static/tabbar/home-s.png"
+      },
+      {
+        "text": "我的",
+        "pagePath": "pages/about/about",
+        "iconPath": "static/tabbar/about.png",
+        "selectedIconPath": "static/tabbar/about-s.png"
+      }
+    ]
   },
   "permission": {},
   "usingComponents": {}

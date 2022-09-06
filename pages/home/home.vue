@@ -1,20 +1,83 @@
 <template>
-	<view class="content">
-		<image class="logo" src="/static/logo.png"></image>
-		<view class="text-area">
-			<text class="title">{{title}}</text>
+	<view class="home">
+		<!-- 头 -->
+		<view class="header">
+			<!-- 信息 -->
+			<view class="user-block">
+				<view class="user">
+					<image class="header-img" src="/static/logo.png"></image>
+					<view class="user-name">
+						<view class="name-text">子豪</view>
+						<view class="name-tag">Hi，欢迎使用温岭积分系统</view>
+					</view>
+				</view>
+				<view class="user-icon">
+					<uni-icons type="forward" size="22" color="#fff"></uni-icons>
+				</view>
+			</view>
+			<!-- 积分总数 -->
+			<view class="jf-num">
+				<image src="@/static/home/jfph.png" class="jf-bg" mode="widthFix"></image>
+				<!-- 积分 -->
+				<div class="num-block">
+					本年积分:<text class="num">312</text>积分
+				</div>
+			</view>
 		</view>
-		<uni-card title="基础卡片" sub-title="副标题" extra="额外信息"
-			thumbnail="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-dc-site/460d46d0-4fcc-11eb-8ff1-d5dcf8779628.png">
-			<text>这是一个带头像和双标题的基础卡片，此示例展示了一个完整的卡片。</text>
-		</uni-card>
-		<uni-rate :value="3" color="#bbb" active-color="red" />
+		<!-- 内容 -->
+		<div class="content">
+			<div class="content-type">
+				<image src="../../static/home/more.png" mode="widthFix" class="more-icon"></image>
+				更多应用
+			</div>
+
+			<ul class="block-list">
+				<li>
+					<image src="../../static/home/starproblem.png" mode="widthFix" class="block-imagsize"></image>
+					<div class="title">
+						开始刷题
+					</div>
+					<div class="block-tag">
+						点击查看
+					</div>
+				</li>
+				<li>
+					<image src="../../static/home/start.png" mode="widthFix" class="block-imagsize"></image>
+					<div class="title">
+						开始考试
+					</div>
+					<div class="block-tag">
+						点击查看
+					</div>
+				</li>
+				<li>
+					<image src="../../static/home/jfmx.png" mode="widthFix" class="block-imagsize"></image>
+					<div class="title">
+						积分明细
+					</div>
+					<div class="block-tag">
+						点击查看
+					</div>
+				</li>
+				<li>
+					<image src="../../static/home/jfbd.png" mode="widthFix" class="block-imagsize"></image>
+					<div class="title">
+						积分榜单
+					</div>
+					<div class="block-tag">
+						点击查看
+					</div>
+				</li>
+			</ul>
+		</div>
+
+
 	</view>
 </template>
 
 <script>
 	import {
-		getToken as getTokenApi ,
+		getTokenApi
 	} from '@/api/api.js'
 	import {
 		setToken
@@ -24,6 +87,9 @@
 			return {
 				title: 'Hello'
 			}
+		},
+		components: {
+
 		},
 		onLoad() {
 			this.getToken()
@@ -41,30 +107,158 @@
 	}
 </script>
 
-<style>
-	.content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
+<style lang="scss">
+	.home {
+		width: 100%;
+		height: 100vh;
+		position: relative;
 
-	.logo {
-		height: 200rpx;
-		width: 200rpx;
-		margin-top: 200rpx;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: 50rpx;
-	}
+		.header {
+			padding: 180rpx 31rpx 40rpx;
+			width: 100%;
+			position: relative;
+			z-index: -2;
+			background-image: url('@/static/home/header-page.png');
+			box-sizing: border-box;
+			background-size: 100%;
+			background-repeat: no-repeat;
+			background-position: 0 0;
 
-	.text-area {
-		display: flex;
-		justify-content: center;
-	}
+			.user-block {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				width: 100%;
 
-	.title {
-		font-size: 36rpx;
-		color: #8f8f94;
+				.user {
+					display: flex;
+					justify-content: start;
+					align-items: center;
+
+					.header-img {
+						width: 120rpx;
+						height: 120rpx;
+						display: block;
+						object-fit: cover;
+						border-radius: 50%;
+					}
+
+					.user-name {
+						padding-left: 20rpx;
+						color: #FFFFFF;
+
+						.name-text {
+							font-size: 32rpx;
+						}
+
+						.name-tag {
+							font-size: 22rpx;
+							margin-top: 10rpx;
+						}
+					}
+				}
+			}
+
+			.jf-num {
+				width: 100%;
+				height: 172rpx;
+				position: relative;
+
+				.jf-bg {
+					width: 100%;
+					height: 100%;
+					position: relative;
+					z-index: -1;
+					display: block;
+					top: 0;
+				}
+
+				.num-block {
+					position: absolute;
+					top: 0%;
+					width: 100%;
+					font-size: 28rpx;
+					height: 100%;
+					color: #fff;
+					display: flex;
+					align-items: center;
+					box-sizing: border-box;
+					padding: 38rpx 95rpx 0 51rpx;
+
+					.num {
+						font-size: 44rpx;
+						padding: 0 20rpx;
+					}
+				}
+			}
+
+
+
+		}
+
+		.content {
+			position: relative;
+			border-radius: 20rpx 20rpx 0 0;
+			margin-top: -10rpx;
+			background: #F9FAFE;
+			padding: 31rpx;
+			box-sizing: border-box;
+			z-index: 1;
+			width: 100%;
+
+			.content-type {
+				display: flex;
+				justify-content: start;
+				align-items: center;
+				width: 100%;
+				font-size: 28rpx;
+
+				.more-icon {
+					width: 28rpx;
+					height: 28rpx;
+					display: block;
+					margin-right: 14rpx;
+				}
+			}
+
+			.block-list {
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-start;
+				flex-wrap: wrap;
+
+				li {
+					margin-top: 31rpx;
+					width: 330rpx;
+					height: 330rpx;
+					flex-shrink: 0;
+					border-radius: 20rpx;
+					background: #FFFFFF;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					flex-direction: column;
+					box-shadow: 0px 0px 16px 0px rgba(39,50,231,0.04);
+
+					.block-imagsize {
+						width: 163rpx;
+						height: 129rpx;
+						display: block;
+					}
+
+					.title {
+						font-size: 32rpx;
+						margin: 20rpx 0;
+					}
+
+					.block-tag {
+						font-size: 22rpx;
+						color: #6A6D79;
+					}
+
+				}
+			}
+		}
+
 	}
 </style>

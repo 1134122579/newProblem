@@ -1,7 +1,7 @@
 {
   "navigationBarTitleText": "首页",
+  "navigationStyle": "custom",
   "usingComponents": {
-    "uni-card": "/node-modules/@dcloudio/uni-ui/lib/uni-card/uni-card",
-    "uni-rate": "/node-modules/@dcloudio/uni-ui/lib/uni-rate/uni-rate"
+    "uni-icons": "/node-modules/@dcloudio/uni-ui/lib/uni-icons/uni-icons"
   }
 }

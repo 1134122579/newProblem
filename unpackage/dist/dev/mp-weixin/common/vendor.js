@@ -9194,7 +9194,7 @@ function normalizeComponent (
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 var _axios = _interopRequireDefault(__webpack_require__(/*! axios */ 13));
-var _auth = __webpack_require__(/*! @/utils/auth.js */ 102);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} // import Vue from 'vue'
+var _auth = __webpack_require__(/*! @/utils/auth.js */ 51);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} // import Vue from 'vue'
 
 
 
@@ -14106,13 +14106,59 @@ module.exports = function isAxiosError(payload) {
 };
 
 /***/ }),
-/* 51 */,
+/* 51 */
+/*!*****************************************!*\
+  !*** D:/wml-wx-project/题/utils/auth.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.getToken = getToken;exports.setToken = setToken;exports.removeToken = removeToken;exports.getDefineToken = getDefineToken;exports.setDefineToken = setDefineToken;exports.removeDefineToken = removeDefineToken;var TokenKey = 'token';
+// 认证令牌
+function getToken() {
+  return uni.getStorageSync(TokenKey);
+}
+
+function setToken(token) {
+  return uni.setStorageSync(TokenKey, token);
+}
+
+function removeToken() {
+  return uni.removeStorageSync(TokenKey);
+}
+// 自定义本地存储
+/**
+ * name 名称
+ */
+function getDefineToken(name) {
+  return uni.getStorageSync(name);
+}
+/**
+   * name 名称
+   * key 值
+   */
+function setDefineToken(name, key) {
+  return uni.setStorageSync(name, key);
+}
+/**
+   * 清除本地指定储存
+   * name 名称
+   * key 值
+   */
+function removeDefineToken(name) {
+  return uni.removeStorageSync(name);
+}
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
 /* 52 */,
 /* 53 */,
 /* 54 */,
 /* 55 */,
 /* 56 */,
-/* 57 */
+/* 57 */,
+/* 58 */
 /*!**************************************!*\
   !*** D:/wml-wx-project/题/api/api.js ***!
   \**************************************/
@@ -14120,9 +14166,9 @@ module.exports = function isAxiosError(payload) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.getToken = getToken;var _request = _interopRequireDefault(__webpack_require__(/*! @/utils/request.js */ 12));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+Object.defineProperty(exports, "__esModule", { value: true });exports.getTokenApi = getTokenApi;var _request = _interopRequireDefault(__webpack_require__(/*! @/utils/request.js */ 12));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
-function getToken(data) {
+function getTokenApi(data) {
   return (0, _request.default)({
     url: '/getToken',
     method: 'get',
@@ -14131,7 +14177,6 @@ function getToken(data) {
 }
 
 /***/ }),
-/* 58 */,
 /* 59 */,
 /* 60 */,
 /* 61 */,
@@ -14163,10 +14208,7 @@ function getToken(data) {
 /* 87 */,
 /* 88 */,
 /* 89 */,
-/* 90 */,
-/* 91 */,
-/* 92 */,
-/* 93 */
+/* 90 */
 /*!********************************************************************************!*\
   !*** D:/wml-wx-project/题/node_modules/@dcloudio/uni-ui/lib/uni-icons/icons.js ***!
   \********************************************************************************/
@@ -15340,60 +15382,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     "font_class": "cart",
     "unicode": "e631",
     "unicode_decimal": 58929 }] };exports.default = _default;
-
-/***/ }),
-/* 94 */,
-/* 95 */,
-/* 96 */,
-/* 97 */,
-/* 98 */,
-/* 99 */,
-/* 100 */,
-/* 101 */,
-/* 102 */
-/*!*****************************************!*\
-  !*** D:/wml-wx-project/题/utils/auth.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.getToken = getToken;exports.setToken = setToken;exports.removeToken = removeToken;exports.getDefineToken = getDefineToken;exports.setDefineToken = setDefineToken;exports.removeDefineToken = removeDefineToken;var TokenKey = 'token';
-// 认证令牌
-function getToken() {
-  return uni.getStorageSync(TokenKey);
-}
-
-function setToken(token) {
-  return uni.setStorageSync(TokenKey, token);
-}
-
-function removeToken() {
-  return uni.removeStorageSync(TokenKey);
-}
-// 自定义本地存储
-/**
- * name 名称
- */
-function getDefineToken(name) {
-  return uni.getStorageSync(name);
-}
-/**
-   * name 名称
-   * key 值
-   */
-function setDefineToken(name, key) {
-  return uni.setStorageSync(name, key);
-}
-/**
-   * 清除本地指定储存
-   * name 名称
-   * key 值
-   */
-function removeDefineToken(name) {
-  return uni.removeStorageSync(name);
-}
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ })
 ]]);
