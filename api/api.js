@@ -1,9 +1,9 @@
-import request from '/utils/request.js'
+import request from '@/utils/request.js'
 
-export function toLogin(data) {
+export function getToken(data) {
   return request({
-    url: '/login',
-    method: 'post',
+    url: '/getToken',
+    method: 'get',
     params : data
   }) 
 }
