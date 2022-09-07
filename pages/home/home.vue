@@ -3,7 +3,7 @@
 		<!-- 头 -->
 		<view class="header">
 			<!-- 信息 -->
-			<view class="user-block">
+			<view class="user-block" @click="goPage">
 				<view class="user">
 					<image class="header-img" src="/static/logo.png"></image>
 					<view class="user-name">
@@ -32,7 +32,7 @@
 			</div>
 
 			<ul class="block-list">
-				<li>
+				<li @click="goPage">
 					<image src="../../static/home/starproblem.png" mode="widthFix" class="block-imagsize"></image>
 					<div class="title">
 						开始刷题
@@ -41,7 +41,7 @@
 						点击查看
 					</div>
 				</li>
-				<li>
+				<li @click="goProblem">
 					<image src="../../static/home/start.png" mode="widthFix" class="block-imagsize"></image>
 					<div class="title">
 						开始考试
@@ -50,7 +50,7 @@
 						点击查看
 					</div>
 				</li>
-				<li>
+				<li @click="goScoreLog">
 					<image src="../../static/home/jfmx.png" mode="widthFix" class="block-imagsize"></image>
 					<div class="title">
 						积分明细
@@ -95,6 +95,21 @@
 			this.getToken()
 		},
 		methods: {
+			goPage() {
+				uni.navigateTo({
+					url: '/pages/userinfo/userinfo'
+				})
+			},
+			goScoreLog() {
+				uni.navigateTo({
+					url: '/pages/scoreLog/index'
+				})
+			},
+			goProblem() {
+				uni.navigateTo({
+					url: '/pages/problems/index'
+				})
+			},
 			getToken() {
 				getTokenApi().then(res => {
 					let {
@@ -112,12 +127,13 @@
 		width: 100%;
 		height: 100vh;
 		position: relative;
+		background: #F9FAFE;
 
 		.header {
 			padding: 180rpx 31rpx 40rpx;
 			width: 100%;
 			position: relative;
-			z-index: -2;
+			z-index: 1;
 			background-image: url('@/static/home/header-page.png');
 			box-sizing: border-box;
 			background-size: 100%;
@@ -238,7 +254,7 @@
 					justify-content: center;
 					align-items: center;
 					flex-direction: column;
-					box-shadow: 0px 0px 16px 0px rgba(39,50,231,0.04);
+					box-shadow: 0px 0px 16px 0px rgba(39, 50, 231, 0.04);
 
 					.block-imagsize {
 						width: 163rpx;

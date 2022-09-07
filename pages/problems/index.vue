@@ -1,5 +1,6 @@
 <template>
 	<view class="home">
+		<NavBar />
 		<image src="../../static/more/header-bg.png" class="header-bg" mode="widthFix"></image>
 		<!-- 头 -->
 		<div class="about">
@@ -74,6 +75,7 @@
 </template>
 
 <script>
+	import NavBar from '@/components/NavBar.vue'
 	import {
 		getTokenApi
 	} from '@/api/api.js'
@@ -87,7 +89,7 @@
 			}
 		},
 		components: {
-
+			NavBar
 		},
 		onLoad() {
 			this.getToken()
@@ -192,10 +194,11 @@
 					position: relative;
 					// border-radius: 20rpx 20rpx 0 0;
 					z-index: 1;
-					width:98%;
+					width: 98%;
 					background: #FFFFFF;
 					margin: 0 auto;
 					box-sizing: border-box;
+
 					.content-type {
 						display: flex;
 						justify-content: start;

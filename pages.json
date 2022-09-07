@@ -1,7 +1,26 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-
 		{
+			"path": "pages/home/home",
+			"style": {
+				"navigationBarTitleText": "首页",
+				"navigationStyle": "custom"
+			}
+		}, 
+		{
+			"path": "pages/scoreLog/index",
+			"style": {
+				"navigationBarTitleText": "积分明细",
+				"navigationStyle": "custom"
+			}
+		},
+		
+		{
+			"path": "pages/problemType/problemType",
+			"style": {
+				"navigationBarTitleText": "题目分类"
+			}
+		}, {
 			"path": "pages/problems/index",
 			"style": {
 				"navigationBarTitleText": "",
@@ -11,7 +30,7 @@
 		{
 			"path": "pages/userinfo/userinfo",
 			"style": {
-				"navigationBarTitleText": ""
+				"navigationBarTitleText": "个人信息"
 			}
 		},
 		{
@@ -22,13 +41,6 @@
 			}
 		},
 
-		{
-			"path": "pages/home/home",
-			"style": {
-				"navigationBarTitleText": "首页",
-				"navigationStyle": "custom"
-			}
-		},
 
 		{
 			"path": "pages/index/index",

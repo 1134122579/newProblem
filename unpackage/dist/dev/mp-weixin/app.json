@@ -1,9 +1,11 @@
 {
   "pages": [
+    "pages/home/home",
+    "pages/scoreLog/index",
+    "pages/problemType/problemType",
     "pages/problems/index",
     "pages/userinfo/userinfo",
     "pages/about/about",
-    "pages/home/home",
     "pages/index/index"
   ],
   "subPackages": [],

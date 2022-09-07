@@ -5,7 +5,7 @@
 			<!-- 头 -->
 			<view class="header">
 				<!-- 信息 -->
-				<view class="user-block">
+				<view class="user-block"  @click="goPage">
 					<view class="user">
 						<image class="header-img" src="/static/logo.png"></image>
 						<view class="user-name">
@@ -46,7 +46,7 @@
 					</li>
 				</ul>
 			</div>
-			<div class="type-list">
+			<div class="type-list" @click="goPage" >
 				<image src="../../static/more/userinfo.png" mode="widthFix" class="more-icon"></image>
 				我的信息
 			</div>
@@ -78,6 +78,11 @@
 			this.getToken()
 		},
 		methods: {
+		goPage() {
+			uni.navigateTo({
+				url: '/pages/userinfo/userinfo'
+			})
+		},
 			getToken() {
 				getTokenApi().then(res => {
 					let {
