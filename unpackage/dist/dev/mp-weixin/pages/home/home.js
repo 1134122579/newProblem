@@ -98,7 +98,7 @@ var components
 try {
   components = {
     uniIcons: function() {
-      return Promise.all(/*! import() | node-modules/@dcloudio/uni-ui/lib/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/@dcloudio/uni-ui/lib/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @dcloudio/uni-ui/lib/uni-icons/uni-icons.vue */ 101))
+      return Promise.all(/*! import() | node-modules/@dcloudio/uni-ui/lib/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/@dcloudio/uni-ui/lib/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @dcloudio/uni-ui/lib/uni-icons/uni-icons.vue */ 117))
     }
   }
 } catch (e) {
@@ -313,7 +313,7 @@ var _auth = __webpack_require__(/*! @/utils/auth.js */ 51); //
 //
 //
 //
-var _default = { data: function data() {return { title: 'Hello' };}, components: {}, onLoad: function onLoad() {this.getToken();}, methods: { goPage: function goPage() {uni.navigateTo({ url: '/pages/userinfo/userinfo' });}, goScoreLog: function goScoreLog() {uni.navigateTo({ url: '/pages/scoreLog/index' });}, goProblem: function goProblem() {uni.navigateTo({ url: '/pages/problems/index' });}, getToken: function getToken() {(0, _api.getTokenApi)().then(function (res) {var token = res.token;(0, _auth.setToken)(token);});} } };exports.default = _default;
+var _default = { data: function data() {return { title: 'Hello' };}, components: {}, onLoad: function onLoad() {this.getToken();}, methods: { goPage: function goPage() {uni.navigateTo({ url: '/pages/userinfo/userinfo' });}, goProblemTypePage: function goProblemTypePage() {uni.navigateTo({ url: '/pages/problemType/problemType' });}, goScoreLog: function goScoreLog() {uni.navigateTo({ url: '/pages/scoreLog/index' });}, goProblem: function goProblem() {uni.navigateTo({ url: '/pages/problems/index' });}, getToken: function getToken() {(0, _api.getTokenApi)().then(function (res) {var token = res.token;(0, _auth.setToken)(token);});} } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

@@ -77,7 +77,7 @@
 <script>
 	import NavBar from '@/components/NavBar.vue'
 	import {
-		getTokenApi
+		getTokenApi,getProblemList
 	} from '@/api/api.js'
 	import {
 		setToken
@@ -85,16 +85,27 @@
 	export default {
 		data() {
 			return {
-				title: 'Hello'
+				title: 'Hello',
+				problemAllList:[],//所有题目
 			}
 		},
 		components: {
 			NavBar
 		},
-		onLoad() {
-			this.getToken()
+		onLoad(option) {
+			console.log(option,'答题的请求参数')
+			let {id}=option
+			this.getProblemList(id)
+			// this.getToken()
 		},
 		methods: {
+			// 获取答题列表
+			getProblemList(chapter_id){
+				getProblemList({chapter_id}).then(res=>{
+					this.problemAllList=res
+				})
+			},
+			// 获取token
 			getToken() {
 				getTokenApi().then(res => {
 					let {

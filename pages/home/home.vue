@@ -32,7 +32,7 @@
 			</div>
 
 			<ul class="block-list">
-				<li @click="goPage">
+				<li @click="goProblemTypePage">
 					<image src="../../static/home/starproblem.png" mode="widthFix" class="block-imagsize"></image>
 					<div class="title">
 						开始刷题
@@ -98,6 +98,11 @@
 			goPage() {
 				uni.navigateTo({
 					url: '/pages/userinfo/userinfo'
+				})
+			},
+			goProblemTypePage() {
+				uni.navigateTo({
+					url: '/pages/problemType/problemType'
 				})
 			},
 			goScoreLog() {

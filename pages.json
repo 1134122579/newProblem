@@ -6,7 +6,7 @@
 				"navigationBarTitleText": "首页",
 				"navigationStyle": "custom"
 			}
-		}, 
+		},
 		{
 			"path": "pages/scoreLog/index",
 			"style": {
@@ -14,7 +14,7 @@
 				"navigationStyle": "custom"
 			}
 		},
-		
+
 		{
 			"path": "pages/problemType/problemType",
 			"style": {
@@ -47,6 +47,13 @@
 			"style": {
 				"navigationBarTitleText": "uni-app"
 			}
+		}, {
+			"path": "pages/chapter/chapter",
+			"style": {
+				"navigationBarTitleText": "章节目录",
+				"enablePullDownRefresh": false
+			}
+
 		}
 	],
 	"tabBar": {

@@ -7,10 +7,9 @@
 			</view>
 		</view>
 		<view class="type-content">
-			<view class="type-content-title" v-for="item in sonlist" :key="item.id">
+			<view class="type-content-title" @click="goProblemPage(item)" v-for="item in sonlist" :key="item.id">
 				{{item.title}}
 			</view>
-
 		</view>
 
 	</view>
@@ -33,6 +32,12 @@
 			this.getclassify()
 		},
 		methods: {
+			goProblemPage(data) {
+				console.log(data)
+				uni.navigateTo({
+					url: `/pages/chapter/chapter?class_id=${data.id}`
+				})
+			},
 			oclabelClick(data) {
 				if (this.activeId != data.id) {
 					this.sonlist = data.children

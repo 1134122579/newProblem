@@ -9211,7 +9211,7 @@ service.interceptors.request.use(function (config) {
   //添加请求头
   if ((0, _auth.getToken)()) {
     // 给请求头添加token
-    config.headers["token"] = (0, _auth.getToken)();
+    config.headers["access-user-token"] = (0, _auth.getToken)();
   }
   config.headers["app-type"] = 'ios';
   return config;
@@ -14166,7 +14166,7 @@ function removeDefineToken(name) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.getTokenApi = getTokenApi;exports.getclassify = getclassify;var _request = _interopRequireDefault(__webpack_require__(/*! @/utils/request.js */ 12));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+Object.defineProperty(exports, "__esModule", { value: true });exports.getTokenApi = getTokenApi;exports.getclassify = getclassify;exports.getChapter = getChapter;exports.getProblemList = getProblemList;var _request = _interopRequireDefault(__webpack_require__(/*! @/utils/request.js */ 12));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 // 获取token
 function getTokenApi(data) {
@@ -14182,6 +14182,22 @@ function getclassify(data) {
     url: '/getclassify',
     method: 'get',
     params: data });
+
+}
+// 答题章节
+function getChapter(data) {
+  return (0, _request.default)({
+    url: '/getChapter',
+    method: 'post',
+    data: data });
+
+}
+// h获取章节题目列表
+function getProblemList(data) {
+  return (0, _request.default)({
+    url: '/getChapterProblem',
+    method: 'post',
+    data: data });
 
 }
 
@@ -14233,7 +14249,23 @@ function getclassify(data) {
 /* 103 */,
 /* 104 */,
 /* 105 */,
-/* 106 */
+/* 106 */,
+/* 107 */,
+/* 108 */,
+/* 109 */,
+/* 110 */,
+/* 111 */,
+/* 112 */,
+/* 113 */,
+/* 114 */,
+/* 115 */,
+/* 116 */,
+/* 117 */,
+/* 118 */,
+/* 119 */,
+/* 120 */,
+/* 121 */,
+/* 122 */
 /*!********************************************************************************!*\
   !*** D:/wml-wx-project/题/node_modules/@dcloudio/uni-ui/lib/uni-icons/icons.js ***!
   \********************************************************************************/

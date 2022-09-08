@@ -17,7 +17,7 @@ service.interceptors.request.use(config => {
 		//添加请求头
 		if (getToken()) {
 			// 给请求头添加token
-			config.headers["token"] =getToken();
+			config.headers["access-user-token"] =getToken();
 		}
 		config.headers["app-type"] ='ios';
 		return config;
