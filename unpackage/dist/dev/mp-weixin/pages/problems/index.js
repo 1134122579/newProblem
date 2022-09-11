@@ -99,6 +99,29 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var f0 = _vm.isLoading
+    ? _vm._f("problemType")(_vm.problemAllList[_vm.isProblemNum])
+    : null
+  var l0 = _vm.isLoading
+    ? _vm.__map(_vm.problemAllList[_vm.isProblemNum].ans, function(v, i) {
+        var $orig = _vm.__get_orig(v)
+
+        var m0 = _vm.currentStyle(v)
+        return {
+          $orig: $orig,
+          m0: m0
+        }
+      })
+    : null
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        f0: f0,
+        l0: l0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -132,7 +155,37 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 173));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -213,14 +266,19 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 var _api = __webpack_require__(/*! @/api/api.js */ 58);
 
 
-var _auth = __webpack_require__(/*! @/utils/auth.js */ 51);var NavBar = function NavBar() {__webpack_require__.e(/*! require.ensure | components/NavBar */ "components/NavBar").then((function () {return resolve(__webpack_require__(/*! @/components/NavBar.vue */ 125));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
+var _auth = __webpack_require__(/*! @/utils/auth.js */ 51);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var NavBar = function NavBar() {__webpack_require__.e(/*! require.ensure | components/NavBar */ "components/NavBar").then((function () {return resolve(__webpack_require__(/*! @/components/NavBar.vue */ 131));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 {
   data: function data() {
     return {
-      title: 'Hello',
+      isLoading: false, //是否加载成功
+      isProblem: true,
+      isProblemNum: 0,
       problemAllList: [] //所有题目
+      // noProblemList: [], //错误题id
+      // correctProblemList: [], //正确题id
     };
   },
   components: {
@@ -228,16 +286,141 @@ var _auth = __webpack_require__(/*! @/utils/auth.js */ 51);var NavBar = function
 
   onLoad: function onLoad(option) {
     console.log(option, '答题的请求参数');var
-    id = option.id;
+
+    id =
+    option.id;
     this.getProblemList(id);
     // this.getToken()
   },
+  computed: {
+    // // 计算出题目选项样式
+    currentYes: function currentYes() {
+      // 1: "单选题",
+      // 2: "多选题",
+      // 3: "填空题",
+      // 4: "判断题"
+      var pro = this.problemAllList[this.isProblemNum];
+      if (pro === null || pro === void 0 ? void 0 : pro.answer_value) {//判断是否做题
+        if (pro['type'] == 1) {//判断题型
+          if (pro['answer_value'] != pro['right_key']) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      }
+      return false;
+    },
+    // 计算答题正确的个数
+    currentProblem: function currentProblem() {
+      return this.problemAllList.filter(function (item) {return item.right_key == item.answer_value;}).length;
+    } },
+
+  filters: {
+
+    problemType: function problemType(value) {
+      var obj = {
+        1: "单选题",
+        2: "多选题",
+        3: "填空题",
+        4: "判断题" };
+
+      var type = value === null || value === void 0 ? void 0 : value.type;
+      console.log(value);
+      return obj[type];
+    } },
+
   methods: {
+
+    // 下一题
+    onNextProblem: function onNextProblem() {
+      if (this.isProblemNum <= this.problemAllList.length - 2) {
+        this.isProblemNum += 1;
+      } else {
+        uni.showToast({
+          title: '暂无更多',
+          icon: 'none',
+          mask: true });
+
+      }
+    },
+    isComplete: function isComplete(data) {
+      console.log(data, '当前题是否完成');
+    },
+    // 计算出题目选项样式
+    currentStyle: function currentStyle(data) {
+      // 1: "单选题",
+      // 2: "多选题",
+      // 3: "填空题",
+      // 4: "判断题"
+      var pro = this.problemAllList[this.isProblemNum];
+      if (pro['answer_value']) {//判断是否做题
+        if (pro['type'] == 1) {//判断题型
+          if (pro['answer_value'] == pro['right_key']) {
+            if (pro['answer_value'].includes(data.number)) {
+              return ' yse-problem';
+            }
+          } else {
+            if (pro['answer_value'].includes(data.number)) {
+              return ' no-problem shake';
+            }
+          }
+
+        }
+
+      }
+    },
+    // 单选 判断 点击答案
+    onAnswer: function onAnswer(v) {
+      var problemObj = this.problemAllList[this.isProblemNum];
+      var value = problemObj['answer_value'];
+      console.log(v, v.type, value, '选的项');
+      if (problemObj.type == 1 && value) {
+        return;
+      }
+      if (value) {
+        value = value.split(',');
+        var isnumber = value.includes(v.number);
+        if (isnumber) {
+          value = value.filter(function (item) {return item != v.number;});
+        } else {
+          value.push(v.number);
+        }
+      } else {
+        value = [];
+        value.push(v.number);
+      }
+      value = value.join(',');
+      console.log(value, '结果');
+      this.problemAllList[this.isProblemNum]['answer_value'] = value;
+    },
+    // 点击题号
+    onProblemNumber: function onProblemNumber(data, index) {
+      this.isProblemNum = index;
+      this.isProblem = true;
+    },
+    onStar: function onStar() {
+      this.isProblem = true;
+    },
+    onCard: function onCard() {
+      this.isProblem = false;
+    },
     // 获取答题列表
-    getProblemList: function getProblemList(chapter_id) {var _this = this;
-      (0, _api.getProblemList)({ chapter_id: chapter_id }).then(function (res) {
-        _this.problemAllList = res;
-      });
+    getProblemList: function getProblemList(chapter_id) {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+                uni.showLoading({
+                  title: '加载中',
+                  mask: true });
+
+                _this.isLoading = false;_context.next = 4;return (
+                  (0, _api.getProblemList)({
+                    chapter_id: chapter_id }));case 4:res = _context.sent;
+
+                _this.problemAllList = res.map(function (item) {
+                  item['answer_value'] = "";
+                  return item;
+                }).sort(function (a, b) {return a.id - b.id;});
+                _this.isLoading = true;
+                uni.hideLoading();case 8:case "end":return _context.stop();}}}, _callee);}))();
     },
     // 获取token
     getToken: function getToken() {
@@ -248,6 +431,7 @@ var _auth = __webpack_require__(/*! @/utils/auth.js */ 51);var NavBar = function
         (0, _auth.setToken)(token);
       });
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

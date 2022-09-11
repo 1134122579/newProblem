@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "答题",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "exam-widght": "/components/ExamWidght"
+  }
+}

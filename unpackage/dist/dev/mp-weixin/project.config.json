@@ -19,7 +19,17 @@
   "libVersion": "2.26.0",
   "appid": "wx4c875849df6f4686",
   "projectname": "题",
-  "condition": {},
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "答题列表",
+          "pathName": "pages/problems/index",
+          "query": "id=4"
+        }
+      ]
+    }
+  },
   "editorSetting": {
     "tabIndent": "insertSpaces",
     "tabSize": 2

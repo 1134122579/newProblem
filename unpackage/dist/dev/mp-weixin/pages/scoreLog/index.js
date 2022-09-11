@@ -98,7 +98,7 @@ var components
 try {
   components = {
     uniIcons: function() {
-      return Promise.all(/*! import() | node-modules/@dcloudio/uni-ui/lib/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/@dcloudio/uni-ui/lib/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @dcloudio/uni-ui/lib/uni-icons/uni-icons.vue */ 117))
+      return Promise.all(/*! import() | node-modules/@dcloudio/uni-ui/lib/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/@dcloudio/uni-ui/lib/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @dcloudio/uni-ui/lib/uni-icons/uni-icons.vue */ 123))
     }
   }
 } catch (e) {
@@ -213,7 +213,7 @@ __webpack_require__.r(__webpack_exports__);
 var _api = __webpack_require__(/*! @/api/api.js */ 58);
 
 
-var _auth = __webpack_require__(/*! @/utils/auth.js */ 51);var NavBar = function NavBar() {__webpack_require__.e(/*! require.ensure | components/NavBar */ "components/NavBar").then((function () {return resolve(__webpack_require__(/*! @/components/NavBar.vue */ 125));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+var _auth = __webpack_require__(/*! @/utils/auth.js */ 51);var NavBar = function NavBar() {__webpack_require__.e(/*! require.ensure | components/NavBar */ "components/NavBar").then((function () {return resolve(__webpack_require__(/*! @/components/NavBar.vue */ 131));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 {
