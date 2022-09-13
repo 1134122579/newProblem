@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "考试汇总",
+  "navigationStyle": "custom",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "nav-bar": "/components/NavBar"
+  }
+}

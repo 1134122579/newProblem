@@ -5,11 +5,11 @@
 			<!-- 头 -->
 			<view class="header">
 				<!-- 信息 -->
-				<view class="user-block"  @click="goPage">
+				<view class="user-block" @click="goPage">
 					<view class="user">
-						<image class="header-img" src="/static/logo.png"></image>
+						<image class="header-img" :src="userinfo.headimgurl"></image>
 						<view class="user-name">
-							<view class="name-text">子豪</view>
+							<view class="name-text">{{userinfo.name}}</view>
 							<view class="name-tag">Hi，欢迎使用温岭积分系统</view>
 						</view>
 					</view>
@@ -26,19 +26,19 @@
 				</div>
 
 				<ul class="block-list">
-					<li>
+					<li @click="onscoreLog">
 						<image src="../../static/more/jfnum.png" mode="widthFix" class="block-imagsize"></image>
 						<div class="title">
 							我的积分
 						</div>
 					</li>
-					<li>
+					<li @click="onmyExamLog">
 						<image src="../../static/more/ksjl.png" mode="widthFix" class="block-imagsize"></image>
 						<div class="title">
 							考试记录
 						</div>
 					</li>
-					<li>
+					<li @click="onCollect">
 						<image src="../../static/more/kshz.png" mode="widthFix" class="block-imagsize"></image>
 						<div class="title">
 							考试汇总
@@ -46,7 +46,7 @@
 					</li>
 				</ul>
 			</div>
-			<div class="type-list" @click="goPage" >
+			<div class="type-list" @click="goPage">
 				<image src="../../static/more/userinfo.png" mode="widthFix" class="more-icon"></image>
 				我的信息
 			</div>
@@ -63,12 +63,13 @@
 		getTokenApi
 	} from '@/api/api.js'
 	import {
-		setToken
+		setToken,
+		getDefineToken
 	} from '@/utils/auth.js'
 	export default {
 		data() {
 			return {
-				title: 'Hello'
+				userinfo: {}
 			}
 		},
 		components: {
@@ -77,12 +78,31 @@
 		onLoad() {
 			this.getToken()
 		},
-		methods: {
-		goPage() {
-			uni.navigateTo({
-				url: '/pages/userinfo/userinfo'
-			})
+		onShow() {
+			this.userinfo = getDefineToken('userinfo')
 		},
+		methods: {
+			onCollect() {
+				uni.navigateTo({
+					url: '/pages/collect/collect'
+				})
+			},
+			onmyExamLog() {
+				uni.navigateTo({
+					url: '/pages/myExamLog/myExamLog'
+				})
+			},
+			onscoreLog() {
+				uni.navigateTo({
+					url: '/pages/scoreLog/index'
+				})
+			},
+
+			goPage() {
+				uni.navigateTo({
+					url: '/pages/userinfo/userinfo'
+				})
+			},
 			getToken() {
 				getTokenApi().then(res => {
 					let {

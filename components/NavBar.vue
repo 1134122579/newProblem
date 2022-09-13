@@ -1,7 +1,7 @@
 <template>
 	<view class="nav-bar" :style="'top:'+MenuButtonObj.top+'px'">
 		<uni-nav-bar :height="MenuButtonObj.height" :border="false" @clickLeft="back" :backgroundColor="backgroundColor" left-icon="left"
-			right-icon="cart" :color="color" :title="title" />
+			 :color="color" :title="title" />
 	</view>
 </template>
 

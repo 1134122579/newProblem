@@ -250,11 +250,17 @@
   text-align: center;
 }
 .home .about .liststyle .explanation {
-  padding: 20rpx 0;
+  padding: 20rpx;
   font-size: 24rpx;
   font-weight: normal;
   color: #373737;
   line-height: 34rpx;
+}
+.home .about .liststyle .explanation .explanation-tag {
+  font-weight: 600;
+}
+.home .about .liststyle .explanation .ex-text {
+  margin-top: 14rpx;
 }
 .home .about .cardstyle {
   position: relative;

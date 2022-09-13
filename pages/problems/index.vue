@@ -132,6 +132,7 @@
 			let {
 				id
 			} = option
+			
 			this.getProblemList(id)
 			// this.getToken()
 		},
@@ -521,11 +522,17 @@
 				}
 
 				.explanation {
-					padding: 20rpx 0;
+					padding: 20rpx;
 					font-size: 24rpx;
 					font-weight: normal;
 					color: #373737;
 					line-height: 34rpx;
+					.explanation-tag{
+						font-weight: 600;
+					}
+					.ex-text{
+						margin-top: 14rpx ;
+					}
 				}
 
 			}

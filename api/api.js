@@ -32,3 +32,54 @@ export function getProblemList(data) {
 		data
 	})
 }
+
+//积分明细
+export function getMyscoreLog(data) {
+	return request({
+		url: '/getMyscoreLog',
+		method: 'get',
+		data
+	})
+}
+// 获取考试
+export function getExamProblem(data) {
+	return request({
+		url: '/getExamProblem',
+		method: 'get',
+		data
+	})
+}
+// 获取考试
+export function getExam(data) {
+	return request({
+		url: '/getExam',
+		method: 'get',
+		data
+	})
+}
+
+// 获取用户信息
+export function getUserInfo(data) {
+	return request({
+		url: '/getUserInfo',
+		method: 'get',
+		data
+	})
+}
+// 获取用户信息
+export function getMyExamLog(data) {
+	return request({
+		url: '/getMyExamLog',
+		method: 'get',
+		data
+	})
+}
+
+// 获取用户信息
+export function editUserInfo(data) {
+	return request({
+		url: '/editUserInfo',
+		method: 'post',
+		data
+	})
+}

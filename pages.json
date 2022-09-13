@@ -64,6 +64,25 @@
             }
             
         }
+        ,{
+            "path" : "pages/collect/collect",
+            "style" :                                                                                 
+            {
+                "navigationBarTitleText": "考试汇总",
+				"navigationStyle": "custom",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/myExamLog/myExamLog",
+            "style" :                                                                                    
+            {
+                "navigationStyle": "custom",
+				"enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"tabBar": {
 		"selectedColor": "#3974F4",

@@ -8,7 +8,9 @@
     "pages/about/about",
     "pages/index/index",
     "pages/chapter/chapter",
-    "pages/newProblem/newProblem"
+    "pages/newProblem/newProblem",
+    "pages/collect/collect",
+    "pages/myExamLog/myExamLog"
   ],
   "subPackages": [],
   "window": {

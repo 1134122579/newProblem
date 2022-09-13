@@ -5,9 +5,9 @@
 			<!-- 信息 -->
 			<view class="user-block" @click="goPage">
 				<view class="user">
-					<image class="header-img" src="/static/logo.png"></image>
+					<image class="header-img" :src="userinfo.headimgurl"></image>
 					<view class="user-name">
-						<view class="name-text">子豪</view>
+						<view class="name-text">{{userinfo.name}}</view>
 						<view class="name-tag">Hi，欢迎使用温岭积分系统</view>
 					</view>
 				</view>
@@ -20,7 +20,7 @@
 				<image src="@/static/home/jfph.png" class="jf-bg" mode="widthFix"></image>
 				<!-- 积分 -->
 				<div class="num-block">
-					本年积分:<text class="num">312</text>积分
+					本年积分:<text class="num">{{userinfo.score}}</text>积分
 				</div>
 			</view>
 		</view>
@@ -77,24 +77,30 @@
 
 <script>
 	import {
-		getTokenApi
+		getTokenApi,getUserInfo
 	} from '@/api/api.js'
 	import {
-		setToken
+		setToken,setDefineToken,getDefineToken
 	} from '@/utils/auth.js'
 	export default {
 		data() {
 			return {
-				title: 'Hello'
+				userinfo: {}
 			}
 		},
 		components: {
 
 		},
 		onLoad() {
+			
+		},
+		onShow(){
 			this.getToken()
+			this.userinfo=getDefineToken('userinfo')
+			console.log(getDefineToken('userinfo'),'asdasd')
 		},
 		methods: {
+				
 			goPage() {
 				uni.navigateTo({
 					url: '/pages/userinfo/userinfo'
@@ -121,6 +127,9 @@
 						token
 					} = res
 					setToken(token)
+					getUserInfo().then(res=>{
+						setDefineToken('userinfo',res)
+					})
 				})
 			}
 		}
@@ -135,7 +144,7 @@
 		background: #F9FAFE;
 
 		.header {
-			padding: 180rpx 31rpx 40rpx;
+			padding: 180rpx 31rpx 50rpx;
 			width: 100%;
 			position: relative;
 			z-index: 1;
@@ -144,7 +153,6 @@
 			background-size: 100%;
 			background-repeat: no-repeat;
 			background-position: 0 0;
-
 			.user-block {
 				display: flex;
 				justify-content: space-between;
@@ -219,8 +227,8 @@
 
 		.content {
 			position: relative;
-			border-radius: 20rpx 20rpx 0 0;
-			margin-top: -10rpx;
+			border-radius: 40rpx 40rpx 0 0;
+			margin-top: -40rpx;
 			background: #F9FAFE;
 			padding: 31rpx;
 			box-sizing: border-box;

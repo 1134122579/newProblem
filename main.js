@@ -1,5 +1,6 @@
 import App from './App'
 import axios from '@/utils/request.js'
+import '@/utils/function.js'
 // #ifndef VUE3
 import Vue from 'vue'
 Vue.config.productionTip = false

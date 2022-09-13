@@ -13,19 +13,34 @@
       "ignore": [],
       "disablePlugins": [],
       "outputPath": ""
-    }
+    },
+    "ignoreUploadUnusedFiles": true
   },
   "compileType": "miniprogram",
   "libVersion": "2.26.0",
-  "appid": "wx4c875849df6f4686",
+  "appid": "wxd3966f233680ece2",
   "projectname": "题",
   "condition": {
+    "search": {
+      "current": -1,
+      "list": []
+    },
+    "conversation": {
+      "current": -1,
+      "list": []
+    },
+    "game": {
+      "current": -1,
+      "list": []
+    },
     "miniprogram": {
+      "current": 0,
       "list": [
         {
           "name": "答题列表",
-          "pathName": "pages/problems/index",
-          "query": "id=4"
+          "query": "id=4",
+          "id": 0,
+          "pathName": "pages/problems/index"
         }
       ]
     }
