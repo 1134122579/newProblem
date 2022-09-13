@@ -138,4 +138,8 @@
   padding: 10rpx 0;
   font-weight: 600;
 }
+.home .uni-table-td {
+  font-size: 22rpx;
+  line-height: 1.2;
+}
 

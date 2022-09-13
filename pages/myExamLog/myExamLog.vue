@@ -213,6 +213,9 @@
 				font-weight: 600;
 			}
 		}
-
+			.uni-table-td{
+				font-size: 22rpx;
+				line-height: 1.2;
+			}
 	}
 </style>

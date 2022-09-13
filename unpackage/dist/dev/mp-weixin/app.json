@@ -10,7 +10,9 @@
     "pages/chapter/chapter",
     "pages/newProblem/newProblem",
     "pages/collect/collect",
-    "pages/myExamLog/myExamLog"
+    "pages/myExamLog/myExamLog",
+    "pages/Ranking/Ranking",
+    "pages/login/login"
   ],
   "subPackages": [],
   "window": {

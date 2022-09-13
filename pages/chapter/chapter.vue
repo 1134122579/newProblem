@@ -49,7 +49,7 @@
 				}).then(res => {
 					console.log(res, '章节列表')
 					this.list = res.map(item => {
-						item['pgNum'] = item.train_num / item.num * 100
+						item['pgNum'] = Math.round(item.train_num / item.num * 100) 
 						return item
 					})
 				})

@@ -146,4 +146,7 @@
   left: 0;
   top: 0%;
 }
+.home .uni-table-td {
+  font-size: 24rpx;
+}
 

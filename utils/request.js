@@ -17,9 +17,9 @@ service.interceptors.request.use(config => {
 		//添加请求头
 		if (getToken()) {
 			// 给请求头添加token
-			config.headers["access-user-token"] =getToken();
+			config.headers["access-user-token"] = getToken();
 		}
-		config.headers["app-type"] ='ios';
+		config.headers["app-type"] = 'ios';
 		return config;
 	},
 	error => {
@@ -33,9 +33,9 @@ service.interceptors.response.use(res => {
 	res = res.data
 	if (res.status !== 200) {
 		return uni.showToast({
-			title:res.message,
-			icon:'none'
-		})&& Promise.reject(res.message);
+			title: res.message,
+			icon: 'none'
+		}) && Promise.reject(res.message);
 	}
 	console.log(res.data); // for debug
 	return res.data

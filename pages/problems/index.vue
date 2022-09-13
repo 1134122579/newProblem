@@ -38,10 +38,8 @@
 						</div>
 					</div>
 					<!-- 答题内容========= 单选 判断 多选 -->
-					<div class="content-problem">
+					<div class="content-problem" v-show="[1,2,4].includes(problemAllList[isProblemNum].type)">
 						<div class="p-title">
-							<!-- 		组织地方法人银行按规定向人民银行申请（）的普惠小微
-							贷款余额增量的激励资金支持. -->
 							{{problemAllList[isProblemNum].title}}
 						</div>
 						<ul class="p-list">
@@ -53,6 +51,28 @@
 								下一题
 							</li>
 						</ul>
+
+					</div>
+					<!-- 填空题 -->
+					<div class="content-problem" v-show="[3].includes(problemAllList[isProblemNum].type)">
+						<div class="p-title">
+							{{problemAllList[isProblemNum].title}}
+						</div>
+						<div class="p-list">
+							<div class="textareaStyle">
+								<uni-easyinput :key="problemAllList[isProblemNum].id"
+									:disabled="problemAllList[isProblemNum].answer_value" :errorMessage="errorMessage"
+									type="textarea" autoHeight v-model="blanksValue" placeholder="请输入答案">
+								</uni-easyinput>
+							</div>
+							<div class="p-list-text p-button" v-if="!problemAllList[isProblemNum].answer_value"
+								@click="onBlanksok">
+								完成
+							</div>
+							<div class="p-list-text p-button" v-else @click="onNextProblem">
+								下一题
+							</div>
+						</div>
 
 					</div>
 
@@ -101,6 +121,11 @@
 				</div>
 			</div>
 		</div>
+		<!-- 弹窗 -->
+		<uni-popup ref="alertDialog" type="dialog">
+			<uni-popup-dialog :type="msgType" cancelText="关闭" confirmText="提交" title="通知"
+				:content="'本次答对'+currentProblem+'道题，是否立即提交!’'" @confirm="dialogConfirm"></uni-popup-dialog>
+		</uni-popup>
 	</view>
 </template>
 
@@ -108,6 +133,7 @@
 	import NavBar from '@/components/NavBar.vue'
 	import {
 		getTokenApi,
+		subTrainResult,
 		getProblemList
 	} from '@/api/api.js'
 	import {
@@ -116,6 +142,11 @@
 	export default {
 		data() {
 			return {
+				chapter_id: '', //章节id
+				msgType: "success",
+				errorMessage: false, //输入框err
+				isStopButton: false, //是否禁止点击选项
+				blanksValue: '', //填空题答案
 				isLoading: false, //是否加载成功
 				isProblem: true,
 				isProblemNum: 0,
@@ -132,11 +163,24 @@
 			let {
 				id
 			} = option
-			
+			this.chapter_id = id
 			this.getProblemList(id)
 			// this.getToken()
 		},
 		computed: {
+			// 判断是否展示完成按钮
+			isBlanks() {
+				return true
+				// let pro = this.problemAllList[this.isProblemNum]
+				// if (pro.answer_value) {
+				// 	if (pro.answer_value == pro.right_key) {
+				// 		return false
+				// 	}
+
+				// } else [
+
+				// ]
+			},
 			// // 计算出题目选项样式
 			currentYes() {
 				// 1: "单选题",
@@ -144,14 +188,23 @@
 				// 3: "填空题",
 				// 4: "判断题"
 				let pro = this.problemAllList[this.isProblemNum]
+
+
 				if (pro?.answer_value) { //判断是否做题
-					if (pro['type'] == 1) { //判断题型
+					if (pro.type != 2) {
 						if (pro['answer_value'] != pro['right_key']) {
 							return true
 						} else {
 							return false
 						}
+					} else {
+						if (pro['right_key'].includes(pro['answer_value'])) {
+							return false
+						} else {
+							return true
+						}
 					}
+
 				}
 				return false
 			},
@@ -175,17 +228,74 @@
 			}
 		},
 		methods: {
+			// 提交答题
+			dialogConfirm() {
+				console.log('点击确认')
+				this.messageText = `点击确认了 ${this.msgType} 窗口`
+				let error_ids = this.problemAllList.filter(item => item.right_key != item.answer_value).map(item => item
+					.id)
+				let right_ids = this.problemAllList.filter(item => item.right_key == item.answer_value).map(item => item
+					.id)
+				let data = {
+					chapter_id: this.chapter_id,
+					error_ids,
+					right_ids
+				}
+				subTrainResult(data).then(res => {
+					uni.showToast({
+						mask: true,
+						title: '提交成功',
+						icon: 'none'
+					})
+					setTimeout(() => {
+						uni.navigateBack()
+					}, 1500)
+				})
+			},
+			// 完成填空题
+			onBlanksok() {
+				if (!this.blanksValue) {
+					this.errorMessage = true
+					return
+				}
+				this.problemAllList[this.isProblemNum].answer_value = this.blanksValue
+				if (this.blanksValue == this.problemAllList[this.isProblemNum].right_key) {
+					if (this.isProblemNum <= this.problemAllList.length - 2) {
+						this.isProblemNum += 1
+						this.isStopButton = false
+						this.blanksValue = ""
+					} else {
+						uni.showToast({
+							title: '暂无更多',
+							icon: 'none',
+							mask: true,
+						})
+					}
+				} else {
+					this.disabled = true
+					this.errorMessage = true
+				}
+
+
+			},
 
 			// 下一题
 			onNextProblem() {
+
 				if (this.isProblemNum <= this.problemAllList.length - 2) {
 					this.isProblemNum += 1
+					this.isStopButton = false
+					let pro = this.problemAllList[this.isProblemNum]
+					console.log(this.blanksValue, pro, 1814)
+					this.errorMessage = false
+					this.blanksValue = pro['answer_value'] || ""
 				} else {
-					uni.showToast({
-						title: '暂无更多',
-						icon: 'none',
-						mask: true,
-					})
+					// uni.showToast({
+					// 	title: '暂无更多',
+					// 	icon: 'none',
+					// 	mask: true,
+					// })
+					this.$refs.alertDialog.open()
 				}
 			},
 			isComplete(data) {
@@ -198,20 +308,42 @@
 				// 3: "填空题",
 				// 4: "判断题"
 				let pro = this.problemAllList[this.isProblemNum]
+
 				if (pro['answer_value']) { //判断是否做题
-					if (pro['type'] == 1) { //判断题型
+					if (pro['type'] == 1 || pro['type'] == 4) { //判断题型
 						if (pro['answer_value'] == pro['right_key']) {
 							if (pro['answer_value'].includes(data.number)) {
 								return ' yse-problem'
 							}
 						} else {
 							if (pro['answer_value'].includes(data.number)) {
+
 								return ' no-problem shake'
 							}
 						}
-
+						this.isStopButton = true
 					}
+					if (pro['type'] == 2) { //  多选是否禁止点击
+						console.log(pro.right_key, pro['answer_value'], '多选是否禁止点击’')
+						if (pro['right_key'].includes(data.number)) {
 
+							if (pro['answer_value'] == pro['right_key']) {
+								this.isStopButton = true
+							}
+							if (pro['answer_value'].includes(data.number)) {
+								return ' yse-problem'
+							}
+						} else {
+							if (pro['answer_value'].includes(data.number)) {
+								this.isStopButton = true
+								return ' no-problem shake'
+							}
+						}
+						// if (!pro.right_key.includes(data.number)) {
+
+						// 	
+						// }
+					}
 				}
 			},
 			// 单选 判断 点击答案
@@ -219,7 +351,10 @@
 				let problemObj = this.problemAllList[this.isProblemNum]
 				let value = problemObj['answer_value']
 				console.log(v, v.type, value, '选的项')
-				if (problemObj.type == 1 && value) {
+				// if (problemObj.type == 1 && value) {
+				// 	return
+				// }
+				if (this.isStopButton) {
 					return
 				}
 				if (value) {
@@ -234,14 +369,22 @@
 					value = []
 					value.push(v.number)
 				}
-				value = value.join(',')
+				value = value.sort()
+				value = value.join('') //多选格式
 				console.log(value, '结果')
 				this.problemAllList[this.isProblemNum]['answer_value'] = value
+				if (problemObj.answer_value == problemObj.right_key) {
+					this.onNextProblem()
+				}
 			},
 			// 点击题号
 			onProblemNumber(data, index) {
 				this.isProblemNum = index
 				this.isProblem = true
+				let pro = this.problemAllList[this.isProblemNum]
+				if (pro?.type == 3) { //判断题型
+					this.blanksValue = pro['answer_value']
+				}
 			},
 			onStar() {
 				this.isProblem = true
@@ -262,7 +405,8 @@
 				this.problemAllList = res.map(item => {
 					item['answer_value'] = ""
 					return item
-				}).sort((a, b) => a.id - b.id)
+				})
+				// .sort((a, b) => a.id - b.id)
 				this.isLoading = true
 				uni.hideLoading()
 			},
@@ -439,6 +583,10 @@
 							padding-bottom: 24rpx;
 							border-bottom: 1rpx dashed #ccc;
 
+							.textareaStyle {
+								margin-top: 20rpx;
+							}
+
 							.uni-data-checklist {
 								.checklist-group {
 									display: block;
@@ -527,11 +675,13 @@
 					font-weight: normal;
 					color: #373737;
 					line-height: 34rpx;
-					.explanation-tag{
+
+					.explanation-tag {
 						font-weight: 600;
 					}
-					.ex-text{
-						margin-top: 14rpx ;
+
+					.ex-text {
+						margin-top: 14rpx;
 					}
 				}
 
@@ -699,5 +849,129 @@
 			margin: auto;
 			margin-left: -100rpx;
 		}
+	}
+</style>
+<style lang="scss">
+	@mixin flex {
+		/* #ifndef APP-NVUE */
+		display: flex;
+		/* #endif */
+		flex-direction: row;
+	}
+
+	@mixin height {
+		/* #ifndef APP-NVUE */
+		height: 100%;
+		/* #endif */
+		/* #ifdef APP-NVUE */
+		flex: 1;
+		/* #endif */
+	}
+
+	.box {
+		@include flex;
+	}
+
+	.button {
+		@include flex;
+		align-items: center;
+		justify-content: center;
+		flex: 1;
+		height: 35px;
+		margin: 0 5px;
+		border-radius: 5px;
+	}
+
+	.example-body {
+		background-color: #fff;
+		padding: 10px 0;
+	}
+
+	.button-text {
+		color: #fff;
+		font-size: 12px;
+	}
+
+	.popup-content {
+		@include flex;
+		align-items: center;
+		justify-content: center;
+		padding: 15px;
+		height: 50px;
+		background-color: #fff;
+	}
+
+	.popup-height {
+		@include height;
+		width: 200px;
+	}
+
+	.text {
+		font-size: 12px;
+		color: #333;
+	}
+
+	.popup-success {
+		color: #fff;
+		background-color: #e1f3d8;
+	}
+
+	.popup-warn {
+		color: #fff;
+		background-color: #faecd8;
+	}
+
+	.popup-error {
+		color: #fff;
+		background-color: #fde2e2;
+	}
+
+	.popup-info {
+		color: #fff;
+		background-color: #f2f6fc;
+	}
+
+	.success-text {
+		color: #09bb07;
+	}
+
+	.warn-text {
+		color: #e6a23c;
+	}
+
+	.error-text {
+		color: #f56c6c;
+	}
+
+	.info-text {
+		color: #909399;
+	}
+
+	.dialog,
+	.share {
+		/* #ifndef APP-NVUE */
+		display: flex;
+		/* #endif */
+		flex-direction: column;
+	}
+
+	.dialog-box {
+		padding: 10px;
+	}
+
+	.dialog .button,
+	.share .button {
+		/* #ifndef APP-NVUE */
+		width: 100%;
+		/* #endif */
+		margin: 0;
+		margin-top: 10px;
+		padding: 3px 0;
+		flex: 1;
+	}
+
+	.dialog-text {
+		font-size: 14px;
+		color: #333;
 	}
 </style>

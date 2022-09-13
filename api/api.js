@@ -83,3 +83,28 @@ export function editUserInfo(data) {
 		data
 	})
 }
+
+//排行榜
+export function getReport(data) {
+	return request({
+		url: '/getReport',
+		method: 'get',
+		data
+	})
+}
+
+export function getScoreRule(data) {
+	return request({
+		url: '/getScoreRule',
+		method: 'get',
+		data
+	})
+}
+
+export function subTrainResult(data) {
+	return request({
+		url: '/subTrainResult',
+		method: 'post',
+		data
+	})
+}

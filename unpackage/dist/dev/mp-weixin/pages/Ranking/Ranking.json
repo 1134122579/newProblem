@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "积分榜单",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "nav-bar": "/components/NavBar"
+  }
+}

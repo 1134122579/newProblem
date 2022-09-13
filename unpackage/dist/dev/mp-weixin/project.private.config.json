@@ -39,6 +39,20 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/Ranking/Ranking",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/problems/index",
+          "query": "id=3",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

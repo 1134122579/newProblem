@@ -59,7 +59,7 @@
 						点击查看
 					</div>
 				</li>
-				<li>
+				<li @click="onRanking">
 					<image src="../../static/home/jfbd.png" mode="widthFix" class="block-imagsize"></image>
 					<div class="title">
 						积分榜单
@@ -77,10 +77,13 @@
 
 <script>
 	import {
-		getTokenApi,getUserInfo
+		getTokenApi,
+		getUserInfo
 	} from '@/api/api.js'
 	import {
-		setToken,setDefineToken,getDefineToken
+		setToken,
+		setDefineToken,
+		getDefineToken
 	} from '@/utils/auth.js'
 	export default {
 		data() {
@@ -92,18 +95,23 @@
 
 		},
 		onLoad() {
-			
+
 		},
-		onShow(){
+		onShow() {
 			this.getToken()
-			this.userinfo=getDefineToken('userinfo')
-			console.log(getDefineToken('userinfo'),'asdasd')
+			this.userinfo = getDefineToken('userinfo')
+			console.log(getDefineToken('userinfo'), 'asdasd')
 		},
 		methods: {
-				
+
 			goPage() {
 				uni.navigateTo({
 					url: '/pages/userinfo/userinfo'
+				})
+			},
+			onRanking() {
+				uni.navigateTo({
+					url: '/pages/Ranking/Ranking'
 				})
 			},
 			goProblemTypePage() {
@@ -127,8 +135,8 @@
 						token
 					} = res
 					setToken(token)
-					getUserInfo().then(res=>{
-						setDefineToken('userinfo',res)
+					getUserInfo().then(res => {
+						setDefineToken('userinfo', res)
 					})
 				})
 			}
@@ -153,6 +161,7 @@
 			background-size: 100%;
 			background-repeat: no-repeat;
 			background-position: 0 0;
+
 			.user-block {
 				display: flex;
 				justify-content: space-between;

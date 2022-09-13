@@ -27,14 +27,14 @@
 				<uni-table stripe emptyText="暂无更多数据">
 					<!-- 表头行 -->
 					<uni-tr>
-						<uni-th width="120rpx" align="center">积分</uni-th>
 						<uni-th width="120rpx" align="center">积分来源</uni-th>
+						<uni-th width="120rpx" align="center">积分</uni-th>
 						<uni-th width="120rpx" align="center">获取时间</uni-th>
 					</uni-tr>
 					<!-- 表格数据行 -->
 					<uni-tr v-for="(item,i) in list" :key="i">
-						<uni-td align="center">{{item.score}}</uni-td>
 						<uni-td align="center">{{item.source}}</uni-td>
+						<uni-td align="center">{{item.score}}</uni-td>
 						<uni-td align="center">{{item.create_time}}</uni-td>
 					</uni-tr>
 				</uni-table>
@@ -46,20 +46,9 @@
 				<div class="title">
 					答题规则
 				</div>
-				　　一、组织机构
-				　　主办：中国大学生在线
-				　　二、活动内容
-				　　本次知识竞赛以线上答题的形式开展，由中国大学生在线平台推出，进行国家安全知识竞答。
-				　　三、活动时间
-				　　2021年4月14日至20日
-				　　四、参赛流程
-				　　①点击链接
-				　　②微信注册登录
-				　　③进入答题页面，点击开始竞赛参与答题
-				　　五、答题规则
-				　　①选手可以选择人物角色参与竞答，隐藏角色需要达到“黄金安全员”段位才可以解锁。
-				　　②竞答每局10道题目，每题10秒的答题时间，答错或者时间结束视为该局淘汰。最后一题为抢答题，速度最快且回答正确的选手胜出，获得“安全精英”称号。选手每答对一题就可以获得10个积分，积分可以对应升级的段位。
-				　　③选手在获得全部段位且获得“安全精英”称号后，可申请领取《全国高校学生国家安全知识线上竞答证书》作为认证奖励。
+				<div class="text-content" v-html="rule">
+					
+				</div>
 			</view>
 			<div class="mask" @click="maskClick" @touchmove.stop.prevent="moveHandle">
 				
@@ -72,7 +61,7 @@
 <script>
 	import NavBar from "@/components/NavBar.vue"
 	import {
-		getMyscoreLog
+		getMyscoreLog,getScoreRule
 	} from '@/api/api.js'
 	import {
 		setToken,
@@ -83,6 +72,7 @@
 			return {
 				list: [],
 				userinfo: {},
+				rule:'',
 				Handle:false
 			}
 		},
@@ -94,8 +84,14 @@
 		onShow() {
 			this.getMyscoreLog()
 			this.userinfo = getDefineToken('userinfo')
+			this.getScoreRule()
 		},
 		methods: {
+			getScoreRule(){
+					getScoreRule().then(res=>{
+						this.rule=res
+					})
+			},
 				moveHandle() {
 						return this.Handle
 					},
@@ -262,6 +258,9 @@
 			z-index: -1;
 			left: 0	;
 			top: 0%;
+		}
+		.uni-table-td{
+			font-size: 24rpx;
 		}
 
 	}
