@@ -126,7 +126,7 @@
 			},
 			goProblem() {
 				uni.navigateTo({
-					url: '/pages/problems/index'
+					url: '/pages/examination/examination'
 				})
 			},
 			getToken() {

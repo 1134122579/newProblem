@@ -50,10 +50,14 @@
 				<image src="../../static/more/userinfo.png" mode="widthFix" class="more-icon"></image>
 				我的信息
 			</div>
-			<div class="type-list">
-				<image src="../../static/more/kf.png" mode="widthFix" class="more-icon"></image>
-				联系客服
-			</div>
+			<label for="">
+				<button type='default' open-type='contact'></button>
+				<div class="type-list">
+					<image src="../../static/more/kf.png" mode="widthFix" class="more-icon"></image>
+					联系客服
+				</div>
+			</label>
+		
 		</div>
 	</view>
 </template>

@@ -62,7 +62,7 @@
 }
 .home .about .header .user-block .user .user-name {
   padding-left: 20rpx;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 .home .about .header .user-block .user .user-name .name-text {
   font-size: 48rpx;
@@ -82,13 +82,13 @@
   z-index: 1;
 }
 .home .about .liststyle::after {
-  content: "";
+  content: '';
   z-index: 1;
   display: block;
   height: 10rpx;
   width: 100%;
   background: #333;
-  box-shadow: 0 5rpx 15rpx #3974F4;
+  box-shadow: 0 5rpx 15rpx #3974f4;
   border-radius: 10rpx;
   position: absolute;
   top: 0;
@@ -98,7 +98,7 @@
   position: relative;
   z-index: 1;
   width: 98%;
-  background: #FFFFFF;
+  background: #ffffff;
   margin: 0 auto;
   box-sizing: border-box;
   padding: 20rpx;
@@ -132,7 +132,7 @@
   flex-shrink: 0;
 }
 .home .about .liststyle .content .content-type .type-num .problem-num {
-  border: 5rpx solid #3974F4;
+  border: 5rpx solid #3974f4;
   width: 100%;
   height: 100%;
   text-align: center;
@@ -171,18 +171,18 @@
   border: none;
   padding: 20rpx 30rpx;
   border-radius: 50rpx;
-  background: #F6F5F8;
+  background: #f6f5f8;
 }
 .home .about .liststyle .content .content-problem .p-list .p-list-text {
   width: 100%;
   box-sizing: border-box;
-  background: #F6F5F8;
+  background: #f6f5f8;
   border-radius: 50rpx;
   padding: 20rpx 30rpx;
   margin-top: 24rpx;
 }
 .home .about .liststyle .content .content-problem .p-list .yse-problem {
-  background: #3974F4;
+  background: #3974f4;
   color: #fff;
 }
 .home .about .liststyle .content .content-problem .p-list .no-problem {
@@ -248,8 +248,8 @@
 }
 }
 .home .about .liststyle .content .content-problem .p-list .p-button {
-  background: #3974F4;
-  color: #FFFFFF;
+  background: #3974f4;
+  color: #ffffff;
   text-align: center;
 }
 .home .about .liststyle .explanation {
@@ -270,13 +270,13 @@
   z-index: 1;
 }
 .home .about .cardstyle::after {
-  content: "";
+  content: '';
   z-index: 1;
   display: block;
   height: 10rpx;
   width: 100%;
   background: #333;
-  box-shadow: 0 5rpx 15rpx #3974F4;
+  box-shadow: 0 5rpx 15rpx #3974f4;
   border-radius: 10rpx;
   position: absolute;
   top: 0;
@@ -286,7 +286,7 @@
   position: relative;
   z-index: 1;
   width: 98%;
-  background: #FFFFFF;
+  background: #ffffff;
   margin: 0 auto;
   box-sizing: border-box;
   padding: 20rpx;
@@ -317,18 +317,18 @@
 .home .about .cardstyle .content .content-problem .problem-id {
   width: 64rpx;
   height: 64rpx;
-  border: 2rpx solid #C4C4C4;
+  border: 2rpx solid #c4c4c4;
   border-radius: 50%;
   text-align: center;
   line-height: 64rpx;
   flex-shrink: 0;
-  color: #3974F4;
+  color: #3974f4;
   margin-top: 46rpx;
-  margin-left: calc((100%-320rpx)/20);
+  margin-left: calc((100%-320rpx) / 20);
 }
 .home .about .cardstyle .content .content-problem .ok-problem-id {
-  background: #3974F4;
-  color: #FFFFFF;
+  background: #3974f4;
+  color: #ffffff;
 }
 .home .about .cardstyle .explanation {
   padding: 20rpx 0;
