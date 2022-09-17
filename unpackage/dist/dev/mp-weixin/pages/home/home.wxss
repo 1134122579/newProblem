@@ -29,6 +29,8 @@
   height: 100vh;
   position: relative;
   background: #F9FAFE;
+  box-sizing: border-box;
+  overflow: auto;
 }
 .home .header {
   padding: 180rpx 31rpx 50rpx;
@@ -107,6 +109,7 @@
   padding: 31rpx;
   box-sizing: border-box;
   z-index: 1;
+  margin-bottom: 90rpx;
   width: 100%;
 }
 .home .content .content-type {

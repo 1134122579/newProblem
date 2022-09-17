@@ -29,7 +29,7 @@
   height: 100vh;
   position: relative;
   z-index: 1;
-  background: #F3F5F7;
+  background: #f3f5f7;
 }
 .home .header-bg {
   position: relative;
@@ -48,7 +48,7 @@
 .home .list .title {
   font-size: 28rpx;
   font-weight: bold;
-  color: #150B47;
+  color: #150b47;
 }
 .home .list .block-list {
   background: #fff;
@@ -76,7 +76,7 @@
   position: absolute;
   z-index: 1;
   width: 200rpx;
-  border-bottom: 1rpx solid #F6F6FE;
+  border-bottom: 1rpx solid #f6f6fe;
 }
 .home .list .block-list .block-time .time-content .sl-icon {
   width: 35rpx;
@@ -94,25 +94,25 @@
   width: 10rpx;
   height: 10rpx;
   border-radius: 50%;
-  border-bottom: 1rpx solid #F6F6FE;
+  border-bottom: 1rpx solid #f6f6fe;
 }
 .home .list .block-list .block-time .time-left {
   font-size: 26rpx;
   font-weight: bold;
-  color: #150B47;
+  color: #150b47;
   line-height: 30rpx;
 }
 .home .list .block-list .block-time .time-left .time-text {
   font-size: 22rpx;
-  color: #736D91;
+  color: #736d91;
   margin-bottom: 5rpx;
 }
 .home .list .block-list .block-time .time-left .gd-time {
-  background: #F6F6FE;
+  background: #f6f6fe;
   border-radius: 23rpx;
   padding: 5rpx 18rpx;
   font-size: 24rpx;
   font-weight: 500;
-  color: #150B47;
+  color: #150b47;
 }
 

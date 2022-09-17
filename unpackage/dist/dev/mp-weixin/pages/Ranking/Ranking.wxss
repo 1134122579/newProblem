@@ -73,7 +73,7 @@
 .home .block-num .num-header .left .num .n-text {
   font-size: 52rpx;
   font-weight: bold;
-  color: #FFFFFF;
+  color: #ffffff;
   margin-right: 14rpx;
 }
 .home .block-num .num-header .right {
@@ -96,11 +96,11 @@
   flex-shrink: 0;
   height: 120rpx;
   text-align: center;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 .home .block-num .header-bottom .h-b .h-b-tag {
   font-size: 22rpx;
-  color: #7B89FF;
+  color: #F9F8F9;
 }
 .home .block-num .header-bottom .h-b .h-b-t {
   font-size: 30rpx;
@@ -109,8 +109,8 @@
   font-weight: 600;
 }
 .home .block-num .header-bottom .border {
-  border-left: 1rpx solid #7B89FF;
-  border-right: 1rpx solid #7B89FF;
+  border-left: 1rpx solid #7b89ff;
+  border-right: 1rpx solid #7b89ff;
 }
 .home .list {
   width: 100%;
@@ -121,7 +121,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: flex-end;
-  margin-bottom: 20	rpx;
+  margin-bottom: 20 rpx;
 }
 .home .list .list-title .title-icon {
   width: 40rpx;
@@ -140,6 +140,7 @@
 }
 .home .list .list-content {
   width: 100%;
+  margin-top: 20rpx;
 }
 .home .list .list-content .list-c-b {
   width: 100%;
@@ -165,7 +166,7 @@
 .home .list .list-content .list-c-b .name .user-name {
   font-weight: 400;
   color: #000000;
-  font-size: 32rpx;
+  font-size: 28rpx;
   line-height: 38rpx;
 }
 .home .list .list-content .list-c-b .index {
@@ -176,9 +177,9 @@
   flex-shrink: 0;
   width: 153rpx;
   font-size: 26rpx;
-  color: #2834E8;
+  color: #2834e8;
 }
 .home .list .list-content .list-bg {
-  background: #F9F8F9;
+  background: #f9f8f9;
 }
 

@@ -46,7 +46,7 @@
   padding: 31rpx;
 }
 .home .about .header {
-  padding: 180rpx 31rpx 40rpx;
+  padding: 180rpx 0rpx 40rpx;
   box-sizing: border-box;
 }
 .home .about .header .user-block {

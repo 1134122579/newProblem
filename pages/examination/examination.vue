@@ -1,6 +1,16 @@
 <template>
+	<page-meta :page-style="'overflow:' + (stopShow ? 'hidden' : 'visible')"></page-meta>
 	<view class="home">
-		<NavBar />
+		<view class="nav-bar" :style="'top:' + MenuButtonObj.top + 'px'">
+			<uni-nav-bar
+				:height="MenuButtonObj.height"
+				:border="false"
+				@clickLeft="back"
+				backgroundColor="rgba(255,255,255,0)"
+				left-icon="left"
+				color="#fff"
+			/>
+		</view>
 		<image src="../../static/more/header-bg.png" class="header-bg" mode="widthFix"></image>
 		<!-- 头 -->
 		<div class="about" v-if="isLoading">
@@ -21,13 +31,14 @@
 							<view class="name-tag">
 								剩余考试时间：
 								<uni-countdown
-								@timeup="timeup"
+									@timeup="timeup"
 									color="#fff"
 									splitorColor="#fff"
 									:show-day="false"
 									:start="countdownstart"
 									:minute="problemInfo.minute"
 									:second="0"
+									:font-size="12"
 								></uni-countdown>
 							</view>
 						</view>
@@ -42,7 +53,7 @@
 			<div class="liststyle" v-show="isProblem">
 				<div class="content">
 					<div class="content-type">
-						<div class="type-left">
+						<div :class="['type-left', isPlLookTyp && 'shake']">
 							{{ problemAllList[isProblemNum] | problemType }}
 						</div>
 						<div class="type-num">
@@ -111,36 +122,40 @@
 		<div class="flooter-bottom">
 			<div class="left-botton" @click="onStar">
 				<image class="star" src="../../static/problrm/star.png" mode="widthFix"></image>
-				<div class="botton-text">收藏</div>
+				<div class="botton-text">答题</div>
 			</div>
 			<div class="right-botton" @click="onCard">
 				<image class="card" src="/static/problrm/card.png" mode="widthFix"></image>
 				<div class="botton-text">答题卡</div>
 			</div>
 		</div>
+
 		<!-- 开始弹窗 -->
-		<uni-popup ref="popup" @change="change">
-			<uni-card padding="0 ">
-				<template v-slot:title>
+		<uni-popup ref="popup" @change="change" :is-mask-click="false">
+			<div class="startBlock">
+				<image src="/static/pro-poup-bg.png" mode="widthFix" class="headerBg"></image>
+				<div class="txt-poup">
 					<div class="ks-title">考试信息</div>
-				</template>
-				<view class="uni-body">
-					<view class="name-tag">{{ problemInfo.title }}</view>
-					<view class="name-tag">时间：{{ problemInfo.minute }} 分</view>
-					<view class="name-tag">总分：{{ problemInfo.all_score }} 分</view>
-					<view class="name-tag">题数：{{ problemInfo.problem_num }} 道</view>
-				</view>
-				<template v-slot:actions>
+					<view class="uni-body">
+						<view class="name-tag title">{{ problemInfo.title }}</view>
+						<div class="xx-text">
+							<view class="name-tag">时间：{{ problemInfo.minute }} 分</view>
+							<view class="name-tag">总分：{{ problemInfo.all_score }} 分</view>
+							<view class="name-tag">题数：{{ problemInfo.problem_num }} 道</view>
+						</div>
+
+					</view>
 					<view class="card-actions">
 						<view class="card-actions-item" @click="onOutClick()">
-							<text class="card-actions-item-text">取消</text>
+							<image class="button-style" src="/static/outpro.png" mode="aspectFit"></image>
 						</view>
 						<view class="card-actions-item" @click="onStart()">
-							<text class="card-actions-item-text start">开始</text>
+					<image  class="button-style" src="/static/start-button.png" mode="aspectFit"></image>
 						</view>
 					</view>
-				</template>
-			</uni-card>
+				</div>
+			
+			</div>
 		</uni-popup>
 		<!-- 弹窗 -->
 		<uni-popup ref="alertDialog" type="dialog">
@@ -148,7 +163,7 @@
 				:type="msgType"
 				cancelText="关闭"
 				confirmText="提交"
-				title="通知"
+				title="友情提示"
 				:content="
 					'本次完成' +
 						currentProblem +
@@ -164,11 +179,21 @@
 
 <script>
 import NavBar from '@/components/NavBar.vue';
-import { getTokenApi, subTrainResult, getExamProblem } from '@/api/api.js';
+import { getTokenApi, subExamResult, getExamProblem } from '@/api/api.js';
 import { setToken } from '@/utils/auth.js';
 export default {
 	data() {
 		return {
+			MenuButtonObj: {
+				bottom: 80,
+				height: 32,
+				left: 281,
+				right: 368,
+				top: 48,
+				width: 87
+			},
+			isPlLookTyp: false, //请认真审题
+			stopShow: false,
 			countdownstart: false,
 			problemInfo: {}, //当前考试要求
 			chapter_id: '', //章节id
@@ -191,6 +216,7 @@ export default {
 		this.getExamProblem(id);
 		this.$refs.popup.open('center');
 		// this.getToken()
+		this.getHeight();
 	},
 	computed: {
 		currentProblem() {
@@ -216,24 +242,73 @@ export default {
 		}
 	},
 	methods: {
+		back() {
+			let that = this;
+			uni.showModal({
+				title: '友情提示',
+				content: '返回将提前交卷，是否确认？',
+				success(res) {
+					if (res.confirm) {
+						that.dialogConfirm();
+					}
+				}
+			});
+		},
+		// 获取微信右上角胶囊高度
+		getHeight() {
+			let res = wx.getMenuButtonBoundingClientRect();
+			console.log(res, '胶囊参数');
+			this.MenuButtonObj = res;
+		},
+		change(e) {
+			this.stopShow = e.show;
+		},
 		// 倒计时时间到
-		timeup(){
-			uni.showToast({
-				title:'时间到',
-				icon:'none'
-			})
+		timeup() {
+			let that = this;
+			uni.showModal({
+				title: '考试时间到！',
+				content: '点击确认立即交卷',
+				showCancel: false,
+				success(res) {
+					if (res.confirm) {
+						that.dialogConfirm();
+					}
+				}
+			});
 		},
-		onOutClick(){
-			uni.navigateBack()
+		onBackFun() {
+			uni.switchTab({
+				url: '/pages/home/home'
+			});
+			return
+			// 处理兼容，如果没有上一级界面则返回首页
+			const pages = getCurrentPages();
+			if (pages.length === 2) {
+				uni.navigateBack({
+					delta: 1
+				});
+			} else if (pages.length === 1) {
+				uni.switchTab({
+					url: '/pages/home/home'
+				});
+			} else {
+				uni.navigateBack({
+					delta: 1
+				});
+			}
 		},
-		onStart(){
-				this.countdownstart=true
-				this.$refs.popup.close();
+		onOutClick() {
+			uni.navigateBack();
+		},
+		onStart() {
+			this.countdownstart = true;
+			this.$refs.popup.close();
 		},
 		// 提交答题
 		dialogConfirm() {
 			console.log('点击确认');
-			this.messageText = `点击确认了 ${this.msgType} 窗口`;
+			let that = this;
 			let error_ids = this.problemAllList
 				.filter(item => item.right_key != item.answer_value)
 				.map(item => item.id);
@@ -241,38 +316,29 @@ export default {
 				.filter(item => item.right_key == item.answer_value)
 				.map(item => item.id);
 			let data = {
-				chapter_id: this.chapter_id,
-				error_ids,
+				exam_id: this.problemInfo.id,
 				right_ids
 			};
-			subTrainResult(data).then(res => {
+			subExamResult(data).then(res => {
 				uni.showToast({
 					mask: true,
 					title: '提交成功',
 					icon: 'none'
 				});
 				setTimeout(() => {
-					uni.navigateBack();
+					that.onBackFun();
+				}, 1500);
+			}).catch(err=>{
+				setTimeout(() => {
+					that.onBackFun();
 				}, 1500);
 			});
 		},
-		// 完成填空题
-		// onBlanksok() {
-		// 	if (!this.blanksValue) {
-		// 		this.errorMessage = true;
-		// 		uni.showToast({
-		// 			title:'请输入答案',
-		// 			icon:'none'
-		// 		})
-		// 		return;
-		// 	}
-		// 	this.problemAllList[this.isProblemNum].answer_value = this.blanksValue;
-		// 	this.blanksValue=''
-		// },
 
 		// 下一题
 		onNextProblem() {
 			let pro = this.problemAllList[this.isProblemNum];
+			this.isPlLookTyp = false;
 			if (pro.type == 3) {
 				this.problemAllList[this.isProblemNum].answer_value = this.blanksValue;
 				this.blanksValue = '';
@@ -305,6 +371,7 @@ export default {
 						title: '请认真审查题型',
 						icon: 'none'
 					});
+					this.isPlLookTyp = true;
 				}
 				value = value.split('');
 				let isnumber = value.includes(v.number);
@@ -326,6 +393,7 @@ export default {
 		onProblemNumber(data, index) {
 			this.isProblemNum = index;
 			this.isProblem = true;
+			this.isPlLookTyp = false;
 			let pro = this.problemAllList[this.isProblemNum];
 			if (pro?.type == 3) {
 				//判断题型
@@ -419,6 +487,7 @@ export default {
 							font-size: 22rpx;
 							margin-top: 10rpx;
 							display: flex;
+							align-items: center;
 						}
 					}
 				}
@@ -564,38 +633,6 @@ export default {
 							color: #fff;
 						}
 
-						// 错误抖动
-						.shake {
-							animation: shake 800ms ease-in-out;
-						}
-
-						@keyframes shake {
-							/* 水平抖动，核心代码 */
-							10%,
-							90% {
-								transform: translate3d(-1px, 0, 0);
-							}
-
-							20%,
-							80% {
-								transform: translate3d(+2px, 0, 0);
-							}
-
-							30%,
-							70% {
-								transform: translate3d(-4px, 0, 0);
-							}
-
-							40%,
-							60% {
-								transform: translate3d(+4px, 0, 0);
-							}
-
-							50% {
-								transform: translate3d(-4px, 0, 0);
-							}
-						}
-
 						.p-button {
 							background: #3974f4;
 							color: #ffffff;
@@ -687,7 +724,7 @@ export default {
 						flex-shrink: 0;
 						color: #3974f4;
 						margin-top: 46rpx;
-						margin-left: calc((100%-320rpx) / 20);
+						margin-left: calc((100% - 320rpx) / 10);
 					}
 
 					.ok-problem-id {
@@ -781,39 +818,114 @@ export default {
 		margin-left: -100rpx;
 	}
 }
-</style>
-<style lang="scss">
-.ks-title {
-	text-align: center;
-	font-size: 30rpx;
-	font-weight: 600;
-	padding: 20rpx 0;
-}
-.uni-body {
-	width: 62vw;
-	.name-tag {
-		font-size: 24rpx;
-		margin-top: 10rpx;
+// 开始弹窗
+.startBlock {
+	width: 586rpx;
+	height: 683rpx;
+	color: #45488D;
+	position: relative;
+	z-index: 1;
+	.headerBg {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		z-index: -1;
 	}
-}
-.card-actions {
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-	.card-actions-item{
-		width: 50%;
-		flex-shrink: 0;
-		height: 80rpx;
-		text-align: center;
-		line-height: 80rpx;
-		font-size: 26rpx;
-		.start{
-			color: #09bb07;
+	.txt-poup{
+		width:100%;
+		height: 100%;
+		box-sizing: border-box;
+		padding: 200rpx 40rpx 0;
+		.ks-title {
+			text-align: center;
+			font-size: 34rpx;
+			font-weight: 800;
+			padding: 20rpx 0;
+			
 		}
+		.uni-body {
+			.xx-text{
+				width: 160rpx;
+				margin: 0 auto;
+				.name-tag {
+					font-size: 26rpx;
+					margin-top: 10rpx;
+				}
+			}
+			.name-tag {
+				font-size: 26rpx;
+				margin-top: 10rpx;
+			}
+			.title {
+				text-align: center;
+				color: #F43D56;
+				margin-bottom: 20rpx;
+			}
+		}
+		.card-actions {
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
+			margin-top: 82rpx;
+			
+			.card-actions-item {
+				width: 50%;
+				flex-shrink: 0;
+				height: 90rpx;
+				text-align: center;
+				line-height: 90rpx;
+				font-size: 26rpx;
+				color: #e6a23c;
+				.button-style {
+					width: 220rpx;
+					height: 70rpx;
+				}
+			}
+		}
+		
+	}
+
+}
+// 错误抖动
+.shake {
+	color: #ff0000;
+	animation: shake 800ms ease-in-out;
+}
+
+@keyframes shake {
+	/* 水平抖动，核心代码 */
+	10%,
+	90% {
+		transform: translate3d(-1px, 0, 0);
+	}
+
+	20%,
+	80% {
+		transform: translate3d(+2px, 0, 0);
+	}
+
+	30%,
+	70% {
+		transform: translate3d(-4px, 0, 0);
+	}
+
+	40%,
+	60% {
+		transform: translate3d(+4px, 0, 0);
+	}
+
+	50% {
+		transform: translate3d(-4px, 0, 0);
 	}
 }
 </style>
+
 <style lang="scss">
+.nav-bar {
+	position: fixed;
+	width: 100%;
+	z-index: 99;
+}
 @mixin flex {
 	/* #ifndef APP-NVUE */
 	display: flex;
@@ -935,5 +1047,13 @@ export default {
 .dialog-text {
 	font-size: 14px;
 	color: #333;
+}
+//自定义按钮颜色 
+
+.uni-popup-dialog{
+	overflow: hidden;
+}
+.uni-popup-dialog .uni-button-color{
+	color: #fff;
 }
 </style>

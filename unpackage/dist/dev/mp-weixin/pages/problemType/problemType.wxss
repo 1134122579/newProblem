@@ -38,8 +38,8 @@
   background-color: #fff;
 }
 .typepage .typelist .label.data-v-38533bfa {
-  height: 80rpx;
-  line-height: 80rpx;
+  height: 100rpx;
+  line-height: 100rpx;
   border-bottom: 1rpx solid #EEF0F2;
 }
 .typepage .typelist .active-label.data-v-38533bfa {
@@ -50,7 +50,7 @@
   content: '·';
   margin-right: 10rpx;
   font-size: 20rpx;
-  line-height: 80rpx;
+  line-height: 100rpx;
   font-weight: 600;
 }
 .typepage .type-content.data-v-38533bfa {

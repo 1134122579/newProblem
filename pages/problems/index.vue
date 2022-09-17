@@ -83,9 +83,9 @@
 				<!-- 题解 -->
 				<div class="explanation" v-show="currentYes">
 					<div class="explanation-tag">
-						题解:{{ problemAllList[isProblemNum].right_key }}
+						正确答案：{{ problemAllList[isProblemNum].right_key }}
 					</div>
-					<div class="ex-text">{{ problemAllList[isProblemNum].explain }}</div>
+					<div class="ex-text">题目解释：{{ problemAllList[isProblemNum].explain }}</div>
 				</div>
 			</div>
 			<!-- 答题卡============================================== -->
@@ -109,7 +109,7 @@
 		<div class="flooter-bottom">
 			<div class="left-botton" @click="onStar">
 				<image class="star" src="../../static/problrm/star.png" mode="widthFix"></image>
-				<div class="botton-text">收藏</div>
+				<div class="botton-text">答题</div>
 			</div>
 			<div class="right-botton" @click="onCard">
 				<image class="card" src="/static/problrm/card.png" mode="widthFix"></image>
@@ -122,7 +122,7 @@
 				:type="msgType"
 				cancelText="关闭"
 				confirmText="提交"
-				title="通知"
+				title="友情提示"
 				:content="'本次答对' + currentProblem + '道题，是否立即提交!'"
 				@confirm="dialogConfirm"
 			></uni-popup-dialog>
@@ -222,7 +222,7 @@ export default {
 			console.log('点击确认');
 			this.messageText = `点击确认了 ${this.msgType} 窗口`;
 			let error_ids = this.problemAllList
-				.filter(item => item.right_key != item.answer_value)
+				.filter(item => item.answer_value&&item.right_key != item.answer_value)
 				.map(item => item.id);
 			let right_ids = this.problemAllList
 				.filter(item => item.right_key == item.answer_value)
@@ -730,7 +730,7 @@ export default {
 						flex-shrink: 0;
 						color: #3974f4;
 						margin-top: 46rpx;
-						margin-left: calc((100%-320rpx) / 20);
+						margin-left: calc((100% - 320rpx) / 10);
 					}
 
 					.ok-problem-id {
@@ -947,5 +947,13 @@ export default {
 .dialog-text {
 	font-size: 14px;
 	color: #333;
+}
+//自定义按钮颜色 
+
+.uni-popup-dialog{
+	overflow: hidden;
+}
+.uni-popup-dialog .uni-button-color{
+	color: #fff;
 }
 </style>

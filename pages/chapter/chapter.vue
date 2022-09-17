@@ -29,13 +29,17 @@
 	export default {
 		data() {
 			return {
-				list: []
+				list: [],
+				class_id:''
 			}
 		},
 		onLoad({
 			class_id
 		}) {
-			this.getChapter(class_id)
+			this.class_id=class_id
+		},
+		onShow() {
+			this.getChapter()
 		},
 		methods: {
 			goProblemPage(data) {
@@ -43,7 +47,8 @@
 					url: `/pages/problems/index?id=${data.id}`
 				})
 			},
-			getChapter(class_id) {
+			getChapter() {
+				let class_id=this.class_id
 				getChapter({
 					class_id
 				}).then(res => {

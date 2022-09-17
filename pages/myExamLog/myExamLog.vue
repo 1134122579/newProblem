@@ -2,83 +2,82 @@
 	<view class="home">
 		<NavBar title="考试记录" />
 		<image src="../../static/more/header-bg.png" class="header-bg" mode="widthFix"></image>
-		<div class="about">
-			<!-- 头 -->
-		<!-- 	<view class="header">
-				<view class="user-block">
-					<view class="user">
-						<image class="header-img" src="/static/more/jfnum.png"></image>
-						<view class="user-name">
-							<view class="name-text">{{userinfo.score}}</view>
-							<view class="name-tag">累计积分</view>
-						</view>
-					</view>
-					<view class="user-icon" @click="onLookGz">
-						<view class="gz">
-							积分规则
-						</view>
-						<uni-icons type="help" size="20" color="#fff"></uni-icons>
-					</view>
-				</view>
-			</view> -->
-			<!-- 内容 -->
-			<div class="content">
-				<uni-table stripe emptyText="暂无更多数据">
-					<!-- 表头行 -->
-					<uni-tr>
-						<uni-th width="120rpx" align="center">名称</uni-th>
-						<uni-th width="120rpx" align="center">积分</uni-th>
-						<uni-th width="140rpx" align="center">时间</uni-th>
-					</uni-tr>
-					<!-- 表格数据行 -->
-					<uni-tr v-for="(item,i) in list" :key="i">
-						<uni-td align="center">{{item.title}}</uni-td>
-						<uni-td align="center">{{item.score}}</uni-td>
-						<uni-td align="center">{{item.create_time}}</uni-td>
-					</uni-tr>
-				</uni-table>
+		<div class="list">
+			<div class="block-list" v-for="item in list" :key="item.id">
+				<div class="title">{{ item.title }}</div>
+				<div class="block-time">
+					<div class="time-left">
+						<div class="time-text">开始时间</div>
+						<div class="time-y">
+							{{ item.start_time[0] }}
+						</div>
+						<div class="time-d">
+							{{ item.start_time[1] }}
+						</div>
+					</div>
+					<div class="time-content">
+						<image src="/static/sl-icon.png" class="sl-icon" mode="widthFix"></image>
+					</div>
+					<div class="time-left">
+						<div class="time-text">结束时间</div>
+						<div class="time-y">
+							{{ item.end_time[0] }}
+						</div>
+						<div class="time-d">
+							{{ item.end_time[1] }}
+						</div>
+					</div>
+				</div>
+				<div class="block-time">
+					<div class="time-left time-r">
+						<div>
+							<div class="time-text">总分</div>
+							<div class="time-y">{{ item.all_score }}分</div>
+						</div>
+						<div class="score">
+							<div class="time-text">成绩</div>
+							<div class="time-y">{{ item.score }}分</div>
+						</div>
+
+					</div>
+					<div class="time-left">
+						<div class="gd-time">规定时间：{{ item.minute }}分钟</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</view>
 </template>
 
 <script>
-	import NavBar from "@/components/NavBar.vue"
-	import {
-		getMyExamLog
-	} from '@/api/api.js'
-	import {
-		setToken,getDefineToken
-	} from '@/utils/auth.js'
+	import NavBar from "@/components/NavBar.vue";
+	import { getMyExamLog } from "@/api/api.js";
+	import { setToken } from "@/utils/auth.js";
 	export default {
 		data() {
 			return {
 				list: [],
-				userinfo:{}
-			}
+			};
 		},
 		components: {
-			NavBar
+			NavBar,
 		},
 		onShow() {
-			this.getMyExamLog()
-		this.userinfo=getDefineToken('userinfo')
+			this.getMyExamLog();
 		},
 		methods: {
-			onLookGz() {
-				this.$refs.popup.open()
-			},
 			getMyExamLog() {
-				getMyExamLog().then(res => {
-					this.list = res.map(item => {
-						item['create_time'] = item['create_time'].split(' ')[0]
-						console.log(item['create_time'])
-						return item
-					})
-				})
-			}
-		}
-	}
+				getMyExamLog().then((res) => {
+					console.log(res, "考试汇总");
+					this.list = res.map((item) => {
+						item["end_time"] = item["end_time"].split(" ");
+						item["start_time"] = item["start_time"].split(" ");
+						return item;
+					});
+				});
+			},
+		},
+	};
 </script>
 
 <style lang="scss">
@@ -87,7 +86,7 @@
 		height: 100vh;
 		position: relative;
 		z-index: 1;
-		background: #F3F5F7;
+		background: #f3f5f7;
 
 		.header-bg {
 			position: relative;
@@ -96,126 +95,105 @@
 			top: 0;
 		}
 
-		.about {
+		.list {
 			position: absolute;
 			top: 180rpx;
+			z-index: 2;
+			padding: 20rpx;
 			width: 100%;
-			height: 100%;
 			box-sizing: border-box;
-			// background: #6A6D79	;
-			padding: 31rpx;
 
-			.header {
-				padding: 180rpx 0 40rpx;
+			.title {
+				font-size: 28rpx;
+				font-weight: bold;
+				color: #150b47;
+			}
+
+			.block-list {
+				background: #fff;
+				width: 100%;
+				padding: 20rpx;
 				box-sizing: border-box;
+				border-radius: 20rpx;
+				margin-bottom: 20rpx;
 
-				.user-block {
+				.block-time {
+					margin-top: 20rpx;
 					display: flex;
 					justify-content: space-between;
 					align-items: center;
-					width: 100%;
 
-					.user {
-						display: flex;
-						justify-content: start;
-						align-items: center;
-
-						.header-img {
-							width: 40rpx;
-							height: 47rpx;
-							display: block;
-							object-fit: cover;
-						}
-
-						.user-name {
-							color: #FFFFFF;
-							display: flex;
-							align-items: flex-end;
-
-							.name-text {
-								padding: 0 20rpx;
-								font-size: 56rpx;
-								line-height: 1;
-							}
-
-							.name-tag {
-								font-size: 28rpx;
-							}
-						}
-
-
-					}
-
-					.user-icon {
+					.time-content {
 						display: flex;
 						justify-content: center;
 						align-items: center;
+						position: relative;
+						z-index: 2;
 
-						.gz {
-							font-size: 28rpx;
-							font-weight: 800;
-							color: #FFFFFF;
+						&::after {
+							content: "";
+							position: absolute;
+							z-index: 1;
+							width: 200rpx;
+							border-bottom: 1rpx solid #f6f6fe;
+						}
+
+						.sl-icon {
+							width: 35rpx;
+							height: 35rpx;
+							position: relative;
+							z-index: 2;
+
+							&::after {
+								content: "";
+								position: absolute;
+								left: -50rpx;
+								top: 0;
+								z-index: 2;
+								background: #ff0000;
+								width: 10rpx;
+								height: 10rpx;
+								border-radius: 50%;
+								border-bottom: 1rpx solid #f6f6fe;
+							}
+						}
+					}
+
+					.time-left {
+						font-size: 26rpx;
+						font-weight: bold;
+						color: #150b47;
+						line-height: 30rpx;
+
+						.time-text {
+							font-size: 22rpx;
+							color: #736d91;
+							margin-bottom: 5rpx;
+						}
+
+						.gd-time {
+							background: #f6f6fe;
+							border-radius: 23rpx;
+							padding: 5rpx 18rpx;
+							font-size: 24rpx;
+							font-weight: 500;
+							color: #150b47;
+						}
+					}
+					.time-r{
+						display: flex;
+						align-items: center;
+						justify-content: flex-start;
+						.score{
+							margin-left: 40rpx;
+							.time-y{
+								color: #ff0000;
+							}
+							
 						}
 					}
 				}
 			}
-
-			.content {
-				position: relative;
-				border-radius: 20rpx;
-				margin-top: -10rpx;
-				padding: 31rpx;
-				box-sizing: border-box;
-				z-index: 1;
-				width: 100%;
-				background: #FFFFFF;
-			}
-
-			.type-list {
-				display: flex;
-				justify-content: start;
-				align-items: center;
-				width: 100%;
-				font-size: 28rpx;
-				background: #FFFFFF;
-				margin-top: 30rpx;
-				border-radius: 20rpx;
-				padding: 30rpx;
-				box-sizing: border-box;
-				box-shadow: 0px 0px 16px 0px rgba(39, 50, 231, 0.04);
-
-				.more-icon {
-					width: 28rpx;
-					height: 28rpx;
-					display: block;
-					margin-right: 14rpx;
-				}
-			}
 		}
-
-		.uni-table-th {
-			font-size: 28rpx;
-			font-weight: bold;
-			color: #1B1C33;
-		}
-		.gz-text{
-			padding: 20rpx;
-			border-radius: 20rpx;
-			width: 80vw;
-			height: 60vh;
-			background: #FFFFFF;
-			margin: 0 auto;
-			overflow-y:auto;
-			.title{
-				text-align: center;
-				font-size: 30rpx;
-				padding: 10rpx 0;
-				font-weight: 600;
-			}
-		}
-			.uni-table-td{
-				font-size: 22rpx;
-				line-height: 1.2;
-			}
 	}
 </style>

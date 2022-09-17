@@ -16,6 +16,7 @@
 </template>
 
 <script>
+	import {setDefineToken} from "@/utils/auth.js"
 	import {
 		getclassify
 	} from '@/api/api.js'
@@ -29,6 +30,8 @@
 			}
 		},
 		onLoad() {
+		},
+		onShow(){
 			this.getclassify()
 		},
 		methods: {
@@ -71,8 +74,8 @@
 			background-color: #fff;
 
 			.label {
-				height: 80rpx;
-				line-height: 80rpx;
+				height: 100rpx;
+				line-height: 100rpx;
 				border-bottom: 1rpx solid #EEF0F2;
 			}
 
@@ -84,7 +87,7 @@
 					content: '·';
 					margin-right: 10rpx;
 					font-size: 20rpx;
-					line-height: 80rpx;
+					line-height: 100rpx;
 					font-weight: 600;
 				}
 			}

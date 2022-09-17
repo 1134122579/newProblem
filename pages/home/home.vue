@@ -5,10 +5,10 @@
 			<!-- 信息 -->
 			<view class="user-block" @click="goPage">
 				<view class="user">
-					<image class="header-img" :src="userinfo.headimgurl"></image>
+					<image class="header-img" :src="userinfo.headimgurl||'http://cdn.521nuochen.cn/0.png'"></image>
 					<view class="user-name">
-						<view class="name-text">{{userinfo.name}}</view>
-						<view class="name-tag">Hi，欢迎使用温岭积分系统</view>
+						<view class="name-text">{{userinfo.name||'登录/认证'}}</view>
+						<view class="name-tag">Hi，欢迎使用温岭联合银行积分系统</view>
 					</view>
 				</view>
 				<view class="user-icon">
@@ -20,7 +20,7 @@
 				<image src="@/static/home/jfph.png" class="jf-bg" mode="widthFix"></image>
 				<!-- 积分 -->
 				<div class="num-block">
-					本年积分:<text class="num">{{userinfo.score}}</text>积分
+					年度积分:<text class="num">{{userinfo.year_score||"0"}}</text>积分
 				</div>
 			</view>
 		</view>
@@ -30,7 +30,6 @@
 				<image src="../../static/home/more.png" mode="widthFix" class="more-icon"></image>
 				更多应用
 			</div>
-
 			<ul class="block-list">
 				<li @click="goProblemTypePage">
 					<image src="../../static/home/starproblem.png" mode="widthFix" class="block-imagsize"></image>
@@ -70,37 +69,40 @@
 				</li>
 			</ul>
 		</div>
-
-
+		<tabbar :active="active"> </tabbar>
 	</view>
 </template>
 
 <script>
+	import tabbar from '@/components/tabbar/tabbar'
 	import {
-		getTokenApi,
+		getExamInfo,
 		getUserInfo
 	} from '@/api/api.js'
 	import {
 		setToken,
+		getToken,
 		setDefineToken,
 		getDefineToken
 	} from '@/utils/auth.js'
 	export default {
 		data() {
 			return {
+				active: '首页',
 				userinfo: {}
 			}
 		},
 		components: {
-
+			tabbar
 		},
 		onLoad() {
 
 		},
 		onShow() {
-			this.getToken()
-			this.userinfo = getDefineToken('userinfo')
-			console.log(getDefineToken('userinfo'), 'asdasd')
+			getApp().globalData.tabbar = "首页"
+			// this.getToken()
+			console.log(121)
+			this.getUserInfo()
 		},
 		methods: {
 
@@ -125,20 +127,19 @@
 				})
 			},
 			goProblem() {
-				uni.navigateTo({
-					url: '/pages/examination/examination'
-				})
-			},
-			getToken() {
-				getTokenApi().then(res => {
-					let {
-						token
-					} = res
-					setToken(token)
-					getUserInfo().then(res => {
-						setDefineToken('userinfo', res)
+				getExamInfo().then(res => {
+					uni.navigateTo({
+						url: '/pages/examination/examination'
 					})
 				})
+			},
+			getUserInfo() {
+				if (getToken()) {
+					getUserInfo().then(res => {
+						setDefineToken('userinfo', res)
+						this.userinfo=res
+					})
+				}
 			}
 		}
 	}
@@ -150,6 +151,8 @@
 		height: 100vh;
 		position: relative;
 		background: #F9FAFE;
+		box-sizing: border-box;
+		overflow: auto;
 
 		.header {
 			padding: 180rpx 31rpx 50rpx;
@@ -242,6 +245,7 @@
 			padding: 31rpx;
 			box-sizing: border-box;
 			z-index: 1;
+			margin-bottom: 90rpx;
 			width: 100%;
 
 			.content-type {

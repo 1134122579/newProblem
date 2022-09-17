@@ -1,16 +1,15 @@
 <template>
-	<view class="home" >
-		<NavBar title="积分明细" />
+	<view class="home">
+		<NavBar title="考试记录" />
 		<image src="../../static/more/header-bg.png" class="header-bg" mode="widthFix"></image>
 		<div class="about">
 			<!-- 头 -->
-			<view class="header">
-				<!-- 信息 -->
+		<!-- 	<view class="header">
 				<view class="user-block">
 					<view class="user">
 						<image class="header-img" src="/static/more/jfnum.png"></image>
 						<view class="user-name">
-							<view class="name-text">{{userinfo.year_score}}</view>
+							<view class="name-text">{{userinfo.score}}</view>
 							<view class="name-tag">累计积分</view>
 						</view>
 					</view>
@@ -21,91 +20,56 @@
 						<uni-icons type="help" size="20" color="#fff"></uni-icons>
 					</view>
 				</view>
-			</view>
+			</view> -->
 			<!-- 内容 -->
 			<div class="content">
 				<uni-table stripe emptyText="暂无更多数据">
 					<!-- 表头行 -->
 					<uni-tr>
-						<uni-th width="120rpx" align="center">积分来源</uni-th>
+						<uni-th width="120rpx" align="center">名称</uni-th>
 						<uni-th width="120rpx" align="center">积分</uni-th>
-						<uni-th width="120rpx" align="center">获取时间</uni-th>
+						<uni-th width="140rpx" align="center">时间</uni-th>
 					</uni-tr>
 					<!-- 表格数据行 -->
 					<uni-tr v-for="(item,i) in list" :key="i">
-						<uni-td align="center">{{item.source}}</uni-td>
+						<uni-td align="center">{{item.title}}</uni-td>
 						<uni-td align="center">{{item.score}}</uni-td>
 						<uni-td align="center">{{item.create_time}}</uni-td>
 					</uni-tr>
 				</uni-table>
 			</div>
 		</div>
-		<uni-popup ref="popup" type="center">
-			
-			<view class="gz-text">
-				<div class="title">
-					答题规则
-				</div>
-				<div class="text-content" v-html="rule">
-					
-				</div>
-			</view>
-			<div class="mask" @click="maskClick" @touchmove.stop.prevent="moveHandle">
-				
-			</div>
-
-		</uni-popup>
 	</view>
 </template>
 
 <script>
 	import NavBar from "@/components/NavBar.vue"
 	import {
-		getMyscoreLog,getScoreRule
+		getMyExamLog
 	} from '@/api/api.js'
 	import {
-		setToken,
-		getDefineToken
+		setToken,getDefineToken
 	} from '@/utils/auth.js'
 	export default {
 		data() {
 			return {
 				list: [],
-				userinfo: {},
-				rule:'',
-				Handle:false
+				userinfo:{}
 			}
 		},
 		components: {
 			NavBar
 		},
-		
-	
 		onShow() {
-			this.getMyscoreLog()
-			this.userinfo = getDefineToken('userinfo')
-			this.getScoreRule()
+			this.getMyExamLog()
+		this.userinfo=getDefineToken('userinfo')
 		},
 		methods: {
-			getScoreRule(){
-					getScoreRule().then(res=>{
-						this.rule=res
-					})
-			},
-				moveHandle() {
-						return this.Handle
-					},
-			maskClick() {
-				this.$refs.popup.close()
-				this.Handle=true
-			},
 			onLookGz() {
 				this.$refs.popup.open()
-				this.Handle=false
-
 			},
-			getMyscoreLog() {
-				getMyscoreLog().then(res => {
+			getMyExamLog() {
+				getMyExamLog().then(res => {
 					this.list = res.map(item => {
 						item['create_time'] = item['create_time'].split(' ')[0]
 						console.log(item['create_time'])
@@ -134,7 +98,7 @@
 
 		.about {
 			position: absolute;
-			top: 0;
+			top: 180rpx;
 			width: 100%;
 			height: 100%;
 			box-sizing: border-box;
@@ -234,40 +198,24 @@
 			font-weight: bold;
 			color: #1B1C33;
 		}
-
-		.gz-text {
-			padding: 40rpx;
+		.gz-text{
+			padding: 20rpx;
 			border-radius: 20rpx;
 			width: 80vw;
 			height: 60vh;
 			background: #FFFFFF;
 			margin: 0 auto;
-			overflow-y: auto;
-			box-sizing: border-box;
-
-			.title {
+			overflow-y:auto;
+			.title{
 				text-align: center;
 				font-size: 30rpx;
 				padding: 10rpx 0;
 				font-weight: 600;
 			}
-			.text-content{
-				font-size: 26rpx;
-				line-height: 1.8;
-				color: #585454;
+		}
+			.uni-table-td{
+				font-size: 22rpx;
+				line-height: 1.2;
 			}
-		}
-		.mask{
-			position:fixed;
-			width: 100vw;
-			height: 100vh;
-			z-index: -1;
-			left: 0	;
-			top: 0%;
-		}
-		.uni-table-td{
-			font-size: 24rpx;
-		}
-
 	}
 </style>

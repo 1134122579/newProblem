@@ -17,14 +17,15 @@
   ],
   "subPackages": [],
   "window": {
-    "navigationBarTextStyle": "black",
     "navigationBarTitleText": "答题",
+    "navigationBarTextStyle": "black",
     "navigationBarBackgroundColor": "#f5f5f5",
     "backgroundColor": "#f5f5f5"
   },
   "tabBar": {
     "selectedColor": "#3974F4",
     "color": "#C4C4C4",
+    "borderStyle": "black",
     "list": [
       {
         "text": "首页",

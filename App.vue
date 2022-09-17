@@ -1,11 +1,14 @@
 <script>
+	 import initApp from "@/utils/authfile.js"
 	export default {
 		globalData: { //使用全局储存信息
 			version: '',
 			versionCode: '',
+			tabbar:'首页'
 		},
 		onLaunch: function() {
-			console.log('App Launch')
+			initApp()
+			console.log(initApp(),'999999')
 		},
 		onShow: function() {
 			console.log('App Show')
@@ -56,4 +59,14 @@
 
 <style>
 	/*每个页面公共css */
+	/* //自定义弹窗按钮颜色 */
+	.uni-dialog-button{
+		background:#f6f5f8 ;
+	}
+	.uni-border-left{
+		background: #659EF8;
+	}
+	.uni-dialog-content{
+		height: 250rpx;
+	}
 </style>

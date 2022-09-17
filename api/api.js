@@ -8,6 +8,13 @@ export function getTokenApi(data) {
 		params: data
 	})
 }
+export function wx_mini_login(data) {
+	return request({
+		url: '/wx_mini_login',
+		method: 'post',
+		data
+	})
+}
 // 答题分类
 export function getclassify(data) {
 	return request({
@@ -104,6 +111,21 @@ export function getScoreRule(data) {
 export function subTrainResult(data) {
 	return request({
 		url: '/subTrainResult',
+		method: 'post',
+		data
+	})
+}
+export function getExamInfo(data) {
+	return request({
+		url: '/getExamInfo',
+		method: 'get',
+		data
+	})
+}
+
+export function subExamResult(data) {
+	return request({
+		url: '/subExamResult',
 		method: 'post',
 		data
 	})

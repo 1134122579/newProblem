@@ -7,10 +7,10 @@
 				<!-- 信息 -->
 				<view class="user-block" @click="goPage">
 					<view class="user">
-						<image class="header-img" :src="userinfo.headimgurl"></image>
+						<image class="header-img" :src="userinfo.headimgurl||'http://cdn.521nuochen.cn/0.png'"></image>
 						<view class="user-name">
-							<view class="name-text">{{userinfo.name}}</view>
-							<view class="name-tag">Hi，欢迎使用温岭积分系统</view>
+							<view class="name-text">{{userinfo.name||"登录/认证"}}</view>
+							<view class="name-tag">Hi，欢迎使用温岭联合银行积分系统</view>
 						</view>
 					</view>
 					<view class="user-icon">
@@ -50,19 +50,21 @@
 				<image src="../../static/more/userinfo.png" mode="widthFix" class="more-icon"></image>
 				我的信息
 			</div>
-			<label for="">
+			<label >
 				<button type='default' open-type='contact'></button>
 				<div class="type-list">
 					<image src="../../static/more/kf.png" mode="widthFix" class="more-icon"></image>
 					联系客服
 				</div>
 			</label>
-		
+
 		</div>
+		<tabbar :active="active"></tabbar>
 	</view>
 </template>
 
 <script>
+	import tabbar from '@/components/tabbar/tabbar'
 	import {
 		getTokenApi
 	} from '@/api/api.js'
@@ -73,16 +75,16 @@
 	export default {
 		data() {
 			return {
+				active:'我的',
 				userinfo: {}
 			}
 		},
 		components: {
-
+			tabbar
 		},
-		onLoad() {
-			this.getToken()
-		},
+		onLoad() {},
 		onShow() {
+			// getApp().globalData.tabbar="我的"
 			this.userinfo = getDefineToken('userinfo')
 		},
 		methods: {
@@ -144,7 +146,7 @@
 			padding: 31rpx;
 
 			.header {
-				padding: 180rpx 31rpx 40rpx;
+				padding: 180rpx 0rpx 40rpx;
 				box-sizing: border-box;
 
 				.user-block {

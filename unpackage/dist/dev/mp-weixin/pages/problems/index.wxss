@@ -324,7 +324,7 @@
   flex-shrink: 0;
   color: #3974f4;
   margin-top: 46rpx;
-  margin-left: calc((100%-320rpx) / 20);
+  margin-left: calc((100% - 320rpx) / 10);
 }
 .home .about .cardstyle .content .content-problem .ok-problem-id {
   background: #3974f4;
@@ -516,5 +516,11 @@
 .dialog-text {
   font-size: 14px;
   color: #333;
+}
+.uni-popup-dialog {
+  overflow: hidden;
+}
+.uni-popup-dialog .uni-button-color {
+  color: #fff;
 }
 

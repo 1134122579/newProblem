@@ -32,12 +32,19 @@ service.interceptors.request.use(config => {
 service.interceptors.response.use(res => {
 	res = res.data
 	if (res.status !== 200) {
+		// 暂未登录
+		if(res.status==203){
+			uni.redirectTo({
+				url:'/pages/login/login'
+			})
+			return Promise.reject(res)
+		}
 		return uni.showToast({
 			title: res.message,
 			icon: 'none'
 		}) && Promise.reject(res.message);
 	}
-	console.log(res.data); // for debug
+	console.log(res); // for debug
 	return res.data
 }, error => {
 	if (error.response.status) {

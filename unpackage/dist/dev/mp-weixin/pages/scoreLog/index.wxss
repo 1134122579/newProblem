@@ -124,19 +124,25 @@
   color: #1B1C33;
 }
 .home .gz-text {
-  padding: 20rpx;
+  padding: 40rpx;
   border-radius: 20rpx;
   width: 80vw;
   height: 60vh;
   background: #FFFFFF;
   margin: 0 auto;
   overflow-y: auto;
+  box-sizing: border-box;
 }
 .home .gz-text .title {
   text-align: center;
   font-size: 30rpx;
   padding: 10rpx 0;
   font-weight: 600;
+}
+.home .gz-text .text-content {
+  font-size: 26rpx;
+  line-height: 1.8;
+  color: #585454;
 }
 .home .mask {
   position: fixed;
