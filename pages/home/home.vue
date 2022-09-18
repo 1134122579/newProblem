@@ -96,7 +96,11 @@
 			tabbar
 		},
 		onLoad() {
-
+			uni.showShareMenu({
+				withShareTicket: true,
+				//设置下方的Menus菜单，才能够让发送给朋友与分享到朋友圈两个按钮可以点击
+				menus: ["shareAppMessage", "shareTimeline"]
+			})
 		},
 		onShow() {
 			getApp().globalData.tabbar = "首页"
@@ -137,11 +141,26 @@
 				if (getToken()) {
 					getUserInfo().then(res => {
 						setDefineToken('userinfo', res)
-						this.userinfo=res
+						this.userinfo = res
 					})
 				}
 			}
-		}
+		},
+		onShareAppMessage(res) {
+		    return {
+		        title: '温岭联合银行积分系统', //分享的名称
+		        // path: '/pages/hfdt/gztjh',
+		        // mpId:'wx6bf107b87c455b99' //此处配置微信小程序的AppId
+		    }
+		},
+		//分享到朋友圈
+		onShareTimeline(res) {
+		    return {
+		        title: '温岭联合银行积分系统',
+		        // type: 0,
+		        // summary: "",
+		    }
+		},
 	}
 </script>
 

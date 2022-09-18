@@ -6,7 +6,7 @@
   },
   "setting": {
     "urlCheck": false,
-    "es6": false,
+    "es6": true,
     "postcss": true,
     "minified": true,
     "babelSetting": {
@@ -18,7 +18,7 @@
   },
   "compileType": "miniprogram",
   "libVersion": "2.26.0",
-  "appid": "wxd3966f233680ece2",
+  "appid": "wxa0058659cf27428f",
   "projectname": "题",
   "condition": {
     "search": {
