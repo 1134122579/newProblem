@@ -34,7 +34,7 @@
 				<li @click="goProblemTypePage">
 					<image src="../../static/home/starproblem.png" mode="widthFix" class="block-imagsize"></image>
 					<div class="title">
-						开始刷题
+						在线刷题
 					</div>
 					<div class="block-tag">
 						点击查看
@@ -43,7 +43,7 @@
 				<li @click="goProblem">
 					<image src="../../static/home/start.png" mode="widthFix" class="block-imagsize"></image>
 					<div class="title">
-						开始考试
+						在线考试
 					</div>
 					<div class="block-tag">
 						点击查看

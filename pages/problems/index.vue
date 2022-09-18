@@ -10,7 +10,7 @@
 					<view class="user">
 						<view class="user-name">
 							<view class="name-text">在线刷题</view>
-							<view class="name-tag">温岭积分系统</view>
+							<view class="name-tag">温岭联合银行积分系统</view>
 						</view>
 					</view>
 					<view class="user-icon">
@@ -130,7 +130,6 @@
 			let { id } = option;
 			this.chapter_id = id;
 			this.getProblemList(id);
-			// this.getToken()
 		},
 		computed: {
 			// 判断是否展示完成按钮
@@ -198,11 +197,36 @@
 				return right_key
 			}
 		},
+		onUnload(){
+			console.log("onUnloadonUnloadonUnloadonUnload")
+			let error_ids = this.problemAllList
+				.filter(item => item.answer_value && item.right_key != item.answer_value)
+				.map(item => item.id);
+			let right_ids = this.problemAllList
+				.filter(item => item.right_key == item.answer_value)
+				.map(item => item.id);
+			let data = {
+				chapter_id: this.chapter_id,
+				error_ids,
+				right_ids
+			};
+			subTrainResult(data).then(res => {
+				uni.showToast({
+					mask: true,
+					title: '提交成功',
+					icon: 'none'
+				});
+			})
+		},
+		onHide() {
+			console.log("onHideonHideonHideonHideonHideonHide")
+			// 推出自动提交
+		
+
+		},
 		methods: {
 			// 提交答题
 			dialogConfirm() {
-				console.log('点击确认');
-				this.messageText = `点击确认了 ${this.msgType} 窗口`;
 				let error_ids = this.problemAllList
 					.filter(item => item.answer_value && item.right_key != item.answer_value)
 					.map(item => item.id);
@@ -381,13 +405,6 @@
 				this.isLoading = true;
 				uni.hideLoading();
 			},
-			// 获取token
-			getToken() {
-				getTokenApi().then(res => {
-					let { token } = res;
-					setToken(token);
-				});
-			}
 		}
 	};
 </script>

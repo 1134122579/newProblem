@@ -2,7 +2,7 @@
 	<view class="home">
 		<NavBar title="考试记录" />
 		<image src="../../static/more/header-bg.png" class="header-bg" mode="widthFix"></image>
-		<div class="list">
+		<div class="list" v-if="list.length>0">
 			<div class="block-list" v-for="item in list" :key="item.id">
 				<div class="title">{{ item.title }}</div>
 				<div class="block-time">
@@ -45,6 +45,12 @@
 					</div>
 				</div>
 			</div>
+		</div>
+		<div class="list" v-else>
+			 <div class="emty">
+				 <image class="emtyimg" src="/static/kong.png" mode="widthFix"></image>
+				 <div>暂无记录</div>
+			 </div>
 		</div>
 	</view>
 </template>
@@ -193,6 +199,20 @@
 						}
 					}
 				}
+			}
+		}
+		.emty{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			font-size: 26rpx;
+			color: #736d91;
+			margin: 0 auto;
+			width: 60vw;
+			.emtyimg{
+				width: 100%;
+				height: 100%;
 			}
 		}
 	}

@@ -20,7 +20,7 @@
 					<view class="user">
 						<view class="user-name">
 							<view class="name-text">在线考试</view>
-							<view class="name-tag">温岭积分系统</view>
+							<view class="name-tag">温岭联合银行积分系统</view>
 							<view class="name-tag">{{ problemInfo.title }}</view>
 							<view class="name-tag">
 								时间：{{ problemInfo.minute }} 分，总分：{{
@@ -366,20 +366,23 @@ export default {
 			let value = problemObj['answer_value'];
 			console.log(v, v.type, value, '选的项');
 			if (value) {
-				if (problemObj.type == 1 || problemObj.type == 4) {
-					uni.showToast({
-						title: '请认真审查题型',
-						icon: 'none'
-					});
-					this.isPlLookTyp = true;
+				if (problemObj.type == 1 || problemObj.type == 4) { //单选 判断
+					// uni.showToast({
+					// 	title: '请认真审查题型',
+					// 	icon: 'none'
+					// });
+					// this.isPlLookTyp = true;
+					value=[v.number]
+				}else{
+					value = value.split('');
+					let isnumber = value.includes(v.number);
+					if (isnumber) {
+						value = value.filter(item => item != v.number);
+					} else {
+						value.push(v.number);
+					}
 				}
-				value = value.split('');
-				let isnumber = value.includes(v.number);
-				if (isnumber) {
-					value = value.filter(item => item != v.number);
-				} else {
-					value.push(v.number);
-				}
+				
 			} else {
 				value = [];
 				value.push(v.number);

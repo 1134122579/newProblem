@@ -74,6 +74,20 @@
           "query": "id=3",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/examination/examination",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/myExamLog/myExamLog",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }
