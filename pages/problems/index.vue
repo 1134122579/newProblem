@@ -111,6 +111,7 @@
 	export default {
 		data() {
 			return {
+				isrequest: true,
 				chapter_id: '', //章节id
 				msgType: 'success',
 				errorMessage: false, //输入框err
@@ -197,31 +198,33 @@
 				return right_key
 			}
 		},
-		onUnload(){
-			console.log("onUnloadonUnloadonUnloadonUnload")
-			let error_ids = this.problemAllList
-				.filter(item => item.answer_value && item.right_key != item.answer_value)
-				.map(item => item.id);
-			let right_ids = this.problemAllList
-				.filter(item => item.right_key == item.answer_value)
-				.map(item => item.id);
-			let data = {
-				chapter_id: this.chapter_id,
-				error_ids,
-				right_ids
-			};
-			subTrainResult(data).then(res => {
-				uni.showToast({
-					mask: true,
-					title: '提交成功',
-					icon: 'none'
-				});
-			})
+		onUnload() {
+			if (this.isrequest) {
+				let error_ids = this.problemAllList
+					.filter(item => item.answer_value && item.right_key != item.answer_value)
+					.map(item => item.id);
+				let right_ids = this.problemAllList
+					.filter(item => item.right_key == item.answer_value)
+					.map(item => item.id);
+				let data = {
+					chapter_id: this.chapter_id,
+					error_ids,
+					right_ids
+				};
+				subTrainResult(data).then(res => {
+					uni.showToast({
+						mask: true,
+						title: '提交成功',
+						icon: 'none'
+					});
+				})
+			}
+
 		},
 		onHide() {
 			console.log("onHideonHideonHideonHideonHideonHide")
 			// 推出自动提交
-		
+
 
 		},
 		methods: {
@@ -244,6 +247,7 @@
 						title: '提交成功',
 						icon: 'none'
 					});
+					this.isrequest=false
 					setTimeout(() => {
 						uni.navigateBack();
 					}, 1500);

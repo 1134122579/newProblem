@@ -26,16 +26,17 @@
 					部门
 				</div>
 				<input class="uni-input" placeholder-style="color:#333;" placeholder="输入部门"
-					v-model="userinfo.position" />
+					v-model="userinfo.department" />
 			</div>
 			<div class="type-list">
 				<div class="left">
 					<image src="../../static/userinfo/bm.png" mode="widthFix" class="more-icon"></image>
 					部门职位
 				</div>
-				<input class="uni-input" placeholder-style="color:#333;" placeholder="输入职位"
-					v-model="userinfo.department" />
+				<input class="uni-input" placeholder-style="color:#333;" placeholder="输入部门职位"
+					v-model="userinfo.position" />
 			</div>
+
 		</div>
 		<div class="button-style" @click="edit">
 			提交
