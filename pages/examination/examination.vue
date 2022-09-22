@@ -20,7 +20,7 @@
 					<view class="user">
 						<view class="user-name">
 							<view class="name-text">在线考试</view>
-							<view class="name-tag">温岭联合银行积分系统</view>
+							<view class="name-tag">温岭联合银行答题积分系统</view>
 							<view class="name-tag">{{ problemInfo.title }}</view>
 							<view class="name-tag">
 								时间：{{ problemInfo.minute }} 分，总分：{{
@@ -192,6 +192,7 @@ export default {
 				top: 48,
 				width: 87
 			},
+			isRequest:true,
 			isPlLookTyp: false, //请认真审题
 			stopShow: false,
 			countdownstart: false,
@@ -268,7 +269,7 @@ export default {
 			let that = this;
 			uni.showModal({
 				title: '考试时间到！',
-				content: '点击确认立即交卷',
+				content: '点击确认立即交卷!',
 				showCancel: false,
 				success(res) {
 					if (res.confirm) {
@@ -325,10 +326,12 @@ export default {
 					title: '提交成功',
 					icon: 'none'
 				});
+				this.isRequest=false
 				setTimeout(() => {
 					that.onBackFun();
 				}, 1500);
 			}).catch(err=>{
+				this.isRequest=false
 				setTimeout(() => {
 					that.onBackFun();
 				}, 1500);
@@ -433,6 +436,11 @@ export default {
 				setToken(token);
 			});
 		}
+	},
+	onUnload() {
+		if(this.isRequest){
+			that.dialogConfirm();
+		}
 	}
 };
 </script>
@@ -479,7 +487,7 @@ export default {
 					align-items: center;
 
 					.user-name {
-						padding-left: 20rpx;
+						padding-right: 30rpx;
 						color: #ffffff;
 
 						.name-text {
@@ -862,7 +870,9 @@ export default {
 			.title {
 				text-align: center;
 				color: #F43D56;
+				margin: 0 auto ;
 				margin-bottom: 20rpx;
+				width: 70%;
 			}
 		}
 		.card-actions {

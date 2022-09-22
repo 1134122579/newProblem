@@ -148,7 +148,7 @@
 		},
 		onShareAppMessage(res) {
 		    return {
-		        title: '温岭联合银行积分系统', //分享的名称
+		        // title: '', //分享的名称
 		        // path: '/pages/hfdt/gztjh',
 		        // mpId:'wx6bf107b87c455b99' //此处配置微信小程序的AppId
 		    }
@@ -156,7 +156,7 @@
 		//分享到朋友圈
 		onShareTimeline(res) {
 		    return {
-		        title: '温岭联合银行积分系统',
+		        // title: '',
 		        // type: 0,
 		        // summary: "",
 		    }

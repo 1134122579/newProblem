@@ -10,7 +10,7 @@
 					<view class="user">
 						<view class="user-name">
 							<view class="name-text">在线刷题</view>
-							<view class="name-tag">温岭联合银行积分系统</view>
+							<view class="name-tag">温岭联合银行答题积分系统</view>
 						</view>
 					</view>
 					<view class="user-icon">

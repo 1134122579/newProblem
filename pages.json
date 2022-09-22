@@ -126,7 +126,7 @@
 		}
 	},
 	"globalStyle": {
-		"navigationBarTitleText": "温岭联合银行积分系统",
+		"navigationBarTitleText": "温岭联合银行答题积分系统",
 		"navigationBarTextStyle":"black",
 		"navigationBarBackgroundColor": "#f5f5f5",
 		"backgroundColor": "#f5f5f5"

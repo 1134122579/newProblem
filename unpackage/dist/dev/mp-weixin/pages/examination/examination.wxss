@@ -61,7 +61,7 @@
   align-items: center;
 }
 .home .about .header .user-block .user .user-name {
-  padding-left: 20rpx;
+  padding-right: 30rpx;
   color: #ffffff;
 }
 .home .about .header .user-block .user .user-name .name-text {
@@ -387,7 +387,9 @@
 .startBlock .txt-poup .uni-body .title {
   text-align: center;
   color: #F43D56;
+  margin: 0 auto;
   margin-bottom: 20rpx;
+  width: 70%;
 }
 .startBlock .txt-poup .card-actions {
   display: flex;

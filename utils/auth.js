@@ -11,6 +11,9 @@ export function setToken(token) {
 export function removeToken() {
 	return uni.removeStorageSync(TokenKey)
 }
+export function clearStorageSync() {
+	return uni.clearStorageSync()
+}
 // 自定义本地存储
 /**
  * name 名称

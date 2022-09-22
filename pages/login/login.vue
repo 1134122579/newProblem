@@ -30,6 +30,7 @@
 
 <script>
 	import { wx_mini_login, getUserInfo } from "@/api/api.js"
+	import { clearStorageSync} from '../../utils/auth.js'
 	import {
 		setToken,
 		setDefineToken,
@@ -45,9 +46,11 @@
 		},
 		methods: {
 			noUser() {
+				clearStorageSync()
 				uni.switchTab({
 					url: '/pages/home/home',
 				})
+				
 			},
 			getUserProfile(e) {
 				let that = this
